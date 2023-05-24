@@ -1,17 +1,23 @@
-package com.liyichen125.dbfinalproject.model;
+package com.liyichen125.dbfinalproject.dto;
 
 import com.liyichen125.dbfinalproject.constant.ItemType;
+import com.sun.istack.internal.NotNull;
 
 import java.util.Date;
 
-public class Item {
+public class ItemRequest {
+    // 這邊沒有date 之後會讓系統自己設定
+    @NotNull
     private Integer item_id;
-    //可以知道商品到底有那些分類
+    @NotNull
     private ItemType type;
+    @NotNull
     private Integer status;
-    private Integer borrow_days;
-    private Date purchase_date;
+    @NotNull
+    private Integer borrow_day;
+    @NotNull
     private Integer tenure;
+    @NotNull
     private Integer compensation_price;
 
     public Integer getItem_id() {
@@ -39,19 +45,11 @@ public class Item {
     }
 
     public Integer getBorrow_day() {
-        return borrow_days;
+        return borrow_day;
     }
 
     public void setBorrow_day(Integer borrow_day) {
-        this.borrow_days = borrow_day;
-    }
-
-    public Date getPurchase_date() {
-        return purchase_date;
-    }
-
-    public void setPurchase_date(Date purchase_date) {
-        this.purchase_date = purchase_date;
+        this.borrow_day = borrow_day;
     }
 
     public Integer getTenure() {
