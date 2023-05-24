@@ -8,4 +8,6 @@ public interface ItemService {
 
     Item getItemById(Integer itemId);
     Integer createItem(ItemRequest itemRequest);
+    void updateItem(Integer item_id, ItemRequest itemRequest);
+    void deleteItemById(Integer item_id);
 }

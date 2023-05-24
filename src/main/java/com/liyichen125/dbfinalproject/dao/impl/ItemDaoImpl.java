@@ -76,7 +76,8 @@ public class ItemDaoImpl implements ItemDao {
         map.put("type",itemRequest.getType().toString());
         map.put("status",itemRequest.getStatus());
         map.put("borrow_day",itemRequest.getBorrow_day());
-        // purchase date 跳過
+
+        // 紀錄當下日期
         Date now = new Date();
         map.put("purchase_date",now);
 
@@ -92,5 +93,39 @@ public class ItemDaoImpl implements ItemDao {
         int item_id = keyHolder.getKey().intValue();
 
         return item_id;
+    }
+
+    @Override
+    public void updateItem(Integer item_id, ItemRequest itemRequest) {
+        String sql = "UPDATE item SET type = :type, status = :status," +
+                "borrow_day = :borrow_day," +
+                "tenure = :tenure, compensation_price = :compensation_price" +
+                " WHERE item_id = :item_id";
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("item_id",item_id);
+        map.put("type",itemRequest.getType().toString());
+        map.put("status",itemRequest.getStatus());
+        map.put("borrow_day",itemRequest.getBorrow_day());
+
+        // 紀錄當下日期
+//        Date now = new Date();
+//        map.put("purchase_date",now);
+
+        map.put("tenure",itemRequest.getTenure());
+        map.put("compensation_price",itemRequest.getCompensation_price());
+
+        namedParameterJdbcTemplate.update(sql, map);
+
+
+    }
+
+    @Override
+    public void deleteItemById(Integer item_id) {
+        String sql = "DELETE FROM item WHERE item_id = :item_id";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("item_id",item_id);
+        namedParameterJdbcTemplate.update(sql,map);
     }
 }

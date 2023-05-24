@@ -7,6 +7,6 @@ public interface ItemDao {
     Item getItemByStatus(Integer status);
     Item getItemById(Integer id);
     Integer createItem(ItemRequest itemRequest);
-    interface MemberDao {
-    }
+    void updateItem(Integer item_id, ItemRequest itemRequest);
+    void deleteItemById(Integer item_id);
 }
