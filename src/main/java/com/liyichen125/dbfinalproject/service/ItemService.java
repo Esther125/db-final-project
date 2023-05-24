@@ -3,9 +3,11 @@ package com.liyichen125.dbfinalproject.service;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 
-public interface ItemService {
-    Item getItemByStatus(Integer status);
+import java.util.List;
 
+public interface ItemService {
+    List<Item> getItems();
+    Item getItemByStatus(Integer status);
     Item getItemById(Integer itemId);
     Integer createItem(ItemRequest itemRequest);
     void updateItem(Integer item_id, ItemRequest itemRequest);
