@@ -1,8 +1,11 @@
 package com.liyichen125.dbfinalproject.model;
 
+import com.liyichen125.dbfinalproject.constant.ItemType;
+
 public class Item {
     private Integer item_id;
-    private String type;
+    //可以知道商品到底有那些分類
+    private ItemType type;
     private Integer status;
     private Integer borrow_day;
 
@@ -14,11 +17,11 @@ public class Item {
         this.item_id = item_id;
     }
 
-    public String getType() {
+    public ItemType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ItemType type) {
         this.type = type;
     }
 
