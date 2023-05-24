@@ -6,9 +6,7 @@ import com.sun.istack.internal.NotNull;
 import java.util.Date;
 
 public class ItemRequest {
-    // 這邊沒有date 之後會讓系統自己設定
-    @NotNull
-    private Integer item_id;
+    // 這邊只有前端傳回來的(可以更改的)值，沒有date 也沒有id
     @NotNull
     private ItemType type;
     @NotNull
@@ -19,14 +17,6 @@ public class ItemRequest {
     private Integer tenure;
     @NotNull
     private Integer compensation_price;
-
-    public Integer getItem_id() {
-        return item_id;
-    }
-
-    public void setItem_id(Integer item_id) {
-        this.item_id = item_id;
-    }
 
     public ItemType getType() {
         return type;

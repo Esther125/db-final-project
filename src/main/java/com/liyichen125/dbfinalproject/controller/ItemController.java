@@ -18,6 +18,7 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+    //利用狀態查詢 Item
     @GetMapping("/items/{status}")
     public ResponseEntity<Item> getItemByStatus(@PathVariable Integer status){
         Item item = itemService.getItemByStatus(status);
@@ -37,6 +38,7 @@ public class ItemController {
         return "item-status";
     }
 
+    //創建 Item
     //這邊createItem裡面再新創一個class會比直接用原來的Item class好
     @PostMapping("/items") //記得有寫 @NotNull 這邊一定要記得加 @Valid
     public ResponseEntity<Item> createItem(@RequestBody @Valid ItemRequest itemRequest){
@@ -44,5 +46,30 @@ public class ItemController {
         //從資料庫取得商品的資訊出來
         Item item = itemService.getItemById(item_id);
         return ResponseEntity.status(HttpStatus.CREATED).body(item);
+    }
+
+    //修改 Item
+    @PutMapping("/items/{item_id}")
+    public ResponseEntity<Item> updateItem(@PathVariable Integer item_id,
+                                           @RequestBody @Valid ItemRequest itemRequest){
+        //檢查product是否存在
+        Item item = itemService.getItemById(item_id);
+        if (item ==  null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        //修改商品的數據
+        itemService.updateItem(item_id,itemRequest);
+        Item updatedItem = itemService.getItemById(item_id);
+
+        //把更新後的商品數據放在ResposeBody中回傳給前端
+        return ResponseEntity.status(HttpStatus.OK).body(updatedItem);
+    }
+
+    // 刪除 Item
+    @DeleteMapping("/items/{item_id}")
+    public ResponseEntity<?> deleteItem(@PathVariable Integer item_id){
+        itemService.deleteItemById(item_id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
