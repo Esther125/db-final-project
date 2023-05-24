@@ -7,11 +7,18 @@ import com.liyichen125.dbfinalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemDao itemDao;
+
+    @Override
+    public List<Item> getItems() {
+        return itemDao.getItems();
+    }
 
     @Override
     public Item getItemByStatus(Integer status) {

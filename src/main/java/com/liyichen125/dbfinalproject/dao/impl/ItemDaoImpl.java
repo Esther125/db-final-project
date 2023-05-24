@@ -23,6 +23,16 @@ public class ItemDaoImpl implements ItemDao {
     private List<Integer> itemBorrowDays = new ArrayList<>();
 
     @Override
+    public List<Item> getItems() {
+        String sql = "SELECT * FROM item";
+
+        Map<String, Object> map = new HashMap<>();
+
+        List<Item> itemList = namedParameterJdbcTemplate.query(sql,map,new ItemRowMapper());
+        return itemList;
+    }
+
+    @Override
     public Item getItemByStatus(Integer status) {
         String sql = "select * from item where status = :status";
         Map<String, Object> map = new HashMap<>();

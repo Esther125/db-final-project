@@ -11,13 +11,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RestController
 public class ItemController {
     @Autowired
     private ItemService itemService;
-
+    //查詢商品列表
+    @GetMapping("/items")
+    public ResponseEntity<List<Item>> getItems(){
+         List<Item> itemList = itemService.getItems();
+         return ResponseEntity.status(HttpStatus.OK).body(itemList);
+    }
     //利用狀態查詢 Item
     @GetMapping("/items/{status}")
     public ResponseEntity<Item> getItemByStatus(@PathVariable Integer status){
@@ -29,14 +35,14 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/items")
-    public String home(Model model) {
-        Item item = new Item();
-
-        model.addAttribute("myItem", item);
-
-        return "item-status";
-    }
+//    @GetMapping("/items")
+//    public String home(Model model) {
+//        Item item = new Item();
+//
+//        model.addAttribute("myItem", item);
+//
+//        return "item-status";
+//    }
 
     //創建 Item
     //這邊createItem裡面再新創一個class會比直接用原來的Item class好
@@ -62,7 +68,7 @@ public class ItemController {
         itemService.updateItem(item_id,itemRequest);
         Item updatedItem = itemService.getItemById(item_id);
 
-        //把更新後的商品數據放在ResposeBody中回傳給前端
+        //把更新後的商品數據放在 ResposeBody中回傳給前端
         return ResponseEntity.status(HttpStatus.OK).body(updatedItem);
     }
 
