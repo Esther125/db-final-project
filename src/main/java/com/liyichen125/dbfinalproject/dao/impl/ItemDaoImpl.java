@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.dao.impl;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dao.ItemDao;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
@@ -20,40 +21,46 @@ public class ItemDaoImpl implements ItemDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private List<Integer> itemIds = new ArrayList<>();
     private List<String> itemTypes = new ArrayList<>();
-    private List<Integer> itemStatus = new ArrayList<>();
+//    private List<Integer> itemStatus = new ArrayList<>();
     private List<Integer> itemBorrowDays = new ArrayList<>();
 
     @Override
-    public List<Item> getItems(ItemType type) {
+    public List<Item> getItems(ItemType type, ItemStatus status) {
         String sql = "SELECT * FROM item WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
 
-        if(type != null){
+        if(type != null ){
             sql = sql + " AND type = :type";//AND 前面一定要加空白鍵
             map.put("type",type.name());//因為type的類型本來是ENUM，要把它轉成字串所以要.name()
+
+        }
+
+        if(status != null){
+            sql = sql + " AND status = :status";
+            map.put("status",status.name());
         }
 
         List<Item> itemList = namedParameterJdbcTemplate.query(sql,map,new ItemRowMapper());
         return itemList;
     }
 
-    @Override
-    public Item getItemByStatus(Integer status) {
-        String sql = "select * from item where status = :status";
-        Map<String, Object> map = new HashMap<>();
-        map.put("status",status);
-
-        List<Item> itemList = namedParameterJdbcTemplate.query(sql, map, new ItemRowMapper());
-
-        if(itemList.size()>0){
-
-            return itemList.get(0);
-        }else{
-            return null;
-        }
-
-    }
+//    @Override
+//    public Item getItemByStatus(Integer status) {
+//        String sql = "select * from item where status = :status";
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("status",status);
+//
+//        List<Item> itemList = namedParameterJdbcTemplate.query(sql, map, new ItemRowMapper());
+//
+//        if(itemList.size()>0){
+//
+//            return itemList.get(0);
+//        }else{
+//            return null;
+//        }
+//
+//    }
 
     @Override
     public Item getItemById(Integer item_id) {
@@ -81,7 +88,7 @@ public class ItemDaoImpl implements ItemDao {
         Map<String,Object> map = new HashMap<>();
 
         map.put("type",itemRequest.getType().toString());
-        map.put("status",itemRequest.getStatus());
+        map.put("status",itemRequest.getStatus().toString());
         map.put("borrow_day",itemRequest.getBorrow_day());
 
         // 紀錄當下日期
@@ -113,7 +120,7 @@ public class ItemDaoImpl implements ItemDao {
         Map<String,Object> map = new HashMap<>();
         map.put("item_id",item_id);
         map.put("type",itemRequest.getType().toString());
-        map.put("status",itemRequest.getStatus());
+        map.put("status",itemRequest.getStatus().toString());
         map.put("borrow_day",itemRequest.getBorrow_day());
 
         // 紀錄當下日期

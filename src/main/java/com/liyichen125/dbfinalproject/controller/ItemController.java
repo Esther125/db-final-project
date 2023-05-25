@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.controller;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
@@ -23,31 +24,24 @@ public class ItemController {
     @GetMapping("/items")
     public ResponseEntity<List<Item>> getItems(
             //把 type改成非必要的參數
-            @RequestParam(required = false) ItemType type
+            @RequestParam(required = false) ItemType type,
+            @RequestParam(required = false) ItemStatus status
 
-    ){
-         List<Item> itemList = itemService.getItems(type);
+            ){
+         List<Item> itemList = itemService.getItems(type,status);
          return ResponseEntity.status(HttpStatus.OK).body(itemList);
     }
     //利用狀態查詢 Item
-    @GetMapping("/items/{status}")
-    public ResponseEntity<Item> getItemByStatus(@PathVariable Integer status){
-        Item item = itemService.getItemByStatus(status);
-        if (item != null){
-            return ResponseEntity.status(HttpStatus.OK).body(item);
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-
-//    @GetMapping("/items")
-//    public String home(Model model) {
-//        Item item = new Item();
-//
-//        model.addAttribute("myItem", item);
-//
-//        return "item-status";
+//    @GetMapping("/items/{status}")
+//    public ResponseEntity<Item> getItemByStatus(@PathVariable Integer status){
+//        Item item = itemService.getItemByStatus(status);
+//        if (item != null){
+//            return ResponseEntity.status(HttpStatus.OK).body(item);
+//        }else{
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
 //    }
+
 
     //創建 Item
     //這邊createItem裡面再新創一個class會比直接用原來的Item class好

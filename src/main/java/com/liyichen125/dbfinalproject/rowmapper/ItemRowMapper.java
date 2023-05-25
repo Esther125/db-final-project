@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.rowmapper;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.model.Item;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,9 +22,14 @@ public class ItemRowMapper implements RowMapper<Item> {
         ItemType type = ItemType.valueOf(typeStr);
         item.setType(type);
 
+        String statusStr = resultSet.getString("status");
+        ItemStatus status = ItemStatus.valueOf(statusStr);
+        item.setStatus(status);
+
+
         //簡潔寫法
         //item.setType(ItemType.valueOf(resultSet.getString("category")));
-        item.setStatus(resultSet.getInt("status"));
+
         item.setBorrow_day(resultSet.getInt("borrow_day"));
         item.setPurchase_date(resultSet.getDate("purchase_date"));
         item.setTenure(resultSet.getInt("tenure"));

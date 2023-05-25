@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.service;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
@@ -7,8 +8,8 @@ import com.liyichen125.dbfinalproject.model.Item;
 import java.util.List;
 
 public interface ItemService {
-    List<Item> getItems(ItemType type);
-    Item getItemByStatus(Integer status);
+    List<Item> getItems(ItemType type, ItemStatus status);
+//    Item getItemByStatus(Integer status);
     Item getItemById(Integer itemId);
     Integer createItem(ItemRequest itemRequest);
     void updateItem(Integer item_id, ItemRequest itemRequest);

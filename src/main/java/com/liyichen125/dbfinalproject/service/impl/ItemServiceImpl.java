@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.service.impl;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dao.ItemDao;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
@@ -18,14 +19,14 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public List<Item> getItems(ItemType type) {
-        return itemDao.getItems(type);
+    public List<Item> getItems(ItemType type, ItemStatus status) {
+        return itemDao.getItems(type,status);
     }
 
-    @Override
-    public Item getItemByStatus(Integer status) {
-        return itemDao.getItemByStatus(status);
-    }
+//    @Override
+//    public Item getItemByStatus(Integer status) {
+//        return itemDao.getItemByStatus(status);
+//    }
 
     @Override
     public Item getItemById(Integer itemId) {
