@@ -8,7 +8,7 @@ import com.liyichen125.dbfinalproject.model.Item;
 import java.util.List;
 
 public interface ItemDao {
-    List<Item> getItems(ItemType item, ItemStatus status);
+    List<Item> getItems(ItemType item, ItemStatus status, String search);
 //    Item getItemByStatus(Integer status);
     Item getItemById(Integer id);
     Integer createItem(ItemRequest itemRequest);

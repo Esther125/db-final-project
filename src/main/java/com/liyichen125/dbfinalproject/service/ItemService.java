@@ -8,7 +8,7 @@ import com.liyichen125.dbfinalproject.model.Item;
 import java.util.List;
 
 public interface ItemService {
-    List<Item> getItems(ItemType type, ItemStatus status);
+    List<Item> getItems(ItemType type, ItemStatus status, String search);
 //    Item getItemByStatus(Integer status);
     Item getItemById(Integer itemId);
     Integer createItem(ItemRequest itemRequest);
