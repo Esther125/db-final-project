@@ -25,10 +25,11 @@ public class ItemController {
     public ResponseEntity<List<Item>> getItems(
             //把 type改成非必要的參數
             @RequestParam(required = false) ItemType type,
-            @RequestParam(required = false) ItemStatus status
+            @RequestParam(required = false) ItemStatus status,
+            @RequestParam(required = false) String search
 
             ){
-         List<Item> itemList = itemService.getItems(type,status);
+         List<Item> itemList = itemService.getItems(type,status,search);
          return ResponseEntity.status(HttpStatus.OK).body(itemList);
     }
     //利用狀態查詢 Item

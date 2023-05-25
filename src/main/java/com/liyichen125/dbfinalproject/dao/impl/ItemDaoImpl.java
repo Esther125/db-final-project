@@ -25,7 +25,7 @@ public class ItemDaoImpl implements ItemDao {
     private List<Integer> itemBorrowDays = new ArrayList<>();
 
     @Override
-    public List<Item> getItems(ItemType type, ItemStatus status) {
+    public List<Item> getItems(ItemType type, ItemStatus status, String search) {
         String sql = "SELECT * FROM item WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
@@ -39,6 +39,13 @@ public class ItemDaoImpl implements ItemDao {
         if(status != null){
             sql = sql + " AND status = :status";
             map.put("status",status.name());
+        }
+
+        //模糊查詢(關鍵字搜尋)
+        if(search != null){
+            //百分比(%)不可以直接寫在SQL裡面，要寫在map的值裡面(jdbc template規定)
+            sql = sql + " AND item_name LIKE :search";
+            map.put("search","%" + search + "%");
         }
 
         List<Item> itemList = namedParameterJdbcTemplate.query(sql,map,new ItemRowMapper());

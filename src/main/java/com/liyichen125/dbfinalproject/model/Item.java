@@ -14,6 +14,7 @@ public class Item {
     private Date purchase_date;
     private Integer tenure;
     private Integer compensation_price;
+    private String item_name;
 
     public String getItem_name() {
         return item_name;
@@ -23,7 +24,6 @@ public class Item {
         this.item_name = item_name;
     }
 
-    private String item_name;
     public Integer getItem_id() {
         return item_id;
     }

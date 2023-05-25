@@ -19,8 +19,8 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public List<Item> getItems(ItemType type, ItemStatus status) {
-        return itemDao.getItems(type,status);
+    public List<Item> getItems(ItemType type, ItemStatus status, String search) {
+        return itemDao.getItems(type,status,search);
     }
 
 //    @Override
