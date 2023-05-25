@@ -1,12 +1,13 @@
 package com.liyichen125.dbfinalproject.service;
 
+import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 
 import java.util.List;
 
 public interface ItemService {
-    List<Item> getItems();
+    List<Item> getItems(ItemType type);
     Item getItemByStatus(Integer status);
     Item getItemById(Integer itemId);
     Integer createItem(ItemRequest itemRequest);

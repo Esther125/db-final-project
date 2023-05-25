@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.controller;
 
+import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.service.ItemService;
@@ -20,8 +21,12 @@ public class ItemController {
     private ItemService itemService;
     //查詢商品列表
     @GetMapping("/items")
-    public ResponseEntity<List<Item>> getItems(){
-         List<Item> itemList = itemService.getItems();
+    public ResponseEntity<List<Item>> getItems(
+            //把 type改成非必要的參數
+            @RequestParam(required = false) ItemType type
+
+    ){
+         List<Item> itemList = itemService.getItems(type);
          return ResponseEntity.status(HttpStatus.OK).body(itemList);
     }
     //利用狀態查詢 Item
