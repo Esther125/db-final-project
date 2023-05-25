@@ -1,6 +1,8 @@
 package com.liyichen125.dbfinalproject.dto;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
+import com.liyichen125.dbfinalproject.model.Item;
 import com.sun.istack.internal.NotNull;
 
 import java.util.Date;
@@ -10,7 +12,7 @@ public class ItemRequest {
     @NotNull
     private ItemType type;
     @NotNull
-    private Integer status;
+    private ItemStatus status;
     @NotNull
     private Integer borrow_day;
     @NotNull
@@ -38,11 +40,11 @@ public class ItemRequest {
         this.type = type;
     }
 
-    public Integer getStatus() {
+    public ItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(ItemStatus status) {
         this.status = status;
     }
 

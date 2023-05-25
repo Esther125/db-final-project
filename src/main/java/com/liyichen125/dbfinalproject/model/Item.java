@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.model;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ public class Item {
     private Integer item_id;
     //可以知道商品到底有那些分類
     private ItemType type;
-    private Integer status;
+    private ItemStatus status;
     private Integer borrow_days;
     private Date purchase_date;
     private Integer tenure;
@@ -39,11 +40,11 @@ public class Item {
         this.type = type;
     }
 
-    public Integer getStatus() {
+    public ItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(ItemStatus status) {
         this.status = status;
     }
 
