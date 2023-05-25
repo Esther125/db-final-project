@@ -28,6 +28,7 @@ public class ItemRowMapper implements RowMapper<Item> {
         item.setPurchase_date(resultSet.getDate("purchase_date"));
         item.setTenure(resultSet.getInt("tenure"));
         item.setCompensation_price(resultSet.getInt("compensation_price"));
+        item.setItem_name(resultSet.getString("item_name"));
         return item;
 
     }
