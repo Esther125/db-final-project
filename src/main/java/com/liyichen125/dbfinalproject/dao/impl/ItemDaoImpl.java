@@ -47,16 +47,7 @@ public class ItemDaoImpl implements ItemDao {
         List<Item> itemList = namedParameterJdbcTemplate.query(sql, map, new ItemRowMapper());
 
         if(itemList.size()>0){
-            //這邊要修改 目前只會返回第一個項目
-//          return itemList.get(0);
 
-//            for (int i=0; i<itemList.size(); i++) {
-//                Item item = itemList.get(i);
-//                itemIds.add(item.getItem_id());
-//                itemTypes.add(item.getType());
-//                itemStatus.add(item.getStatus());
-//                itemBorrowDays.add(item.getBorrow_day());
-//            }
             return itemList.get(0);
         }else{
             return null;
@@ -83,9 +74,9 @@ public class ItemDaoImpl implements ItemDao {
     @Override
     public Integer createItem(ItemRequest itemRequest){
         String sql = "INSERT INTO item(type,status,borrow_day,purchase_date," +
-                "tenure,compensation_price)" +
+                "tenure,compensation_price,item_name)" +
                 "VALUES(:type,:status,:borrow_day,:purchase_date," +
-                ":tenure,:compensation_price)";
+                ":tenure,:compensation_price,:item_name)";
 
         Map<String,Object> map = new HashMap<>();
 
@@ -99,6 +90,7 @@ public class ItemDaoImpl implements ItemDao {
 
         map.put("tenure",itemRequest.getTenure());
         map.put("compensation_price",itemRequest.getCompensation_price());
+        map.put("item_name",itemRequest.getItem_name());
 
 
 
@@ -115,7 +107,7 @@ public class ItemDaoImpl implements ItemDao {
     public void updateItem(Integer item_id, ItemRequest itemRequest) {
         String sql = "UPDATE item SET type = :type, status = :status," +
                 "borrow_day = :borrow_day," +
-                "tenure = :tenure, compensation_price = :compensation_price" +
+                "tenure = :tenure, compensation_price = :compensation_price, item_name = :item_name" +
                 " WHERE item_id = :item_id";
 
         Map<String,Object> map = new HashMap<>();
@@ -130,6 +122,7 @@ public class ItemDaoImpl implements ItemDao {
 
         map.put("tenure",itemRequest.getTenure());
         map.put("compensation_price",itemRequest.getCompensation_price());
+        map.put("item_name",itemRequest.getItem_name());
 
         namedParameterJdbcTemplate.update(sql, map);
 

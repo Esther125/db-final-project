@@ -16,10 +16,6 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemDao itemDao;
 
-//    @Override
-//    public List<Item> getItems() {
-//        return itemDao.getItems();
-//    }
 
     @Override
     public List<Item> getItems(ItemType type) {
