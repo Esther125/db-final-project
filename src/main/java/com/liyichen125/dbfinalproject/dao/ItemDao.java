@@ -1,12 +1,13 @@
 package com.liyichen125.dbfinalproject.dao;
 
+import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 
 import java.util.List;
 
 public interface ItemDao {
-    List<Item> getItems();
+    List<Item> getItems(ItemType item);
     Item getItemByStatus(Integer status);
     Item getItemById(Integer id);
     Integer createItem(ItemRequest itemRequest);

@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.dao.impl;
 
+import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dao.ItemDao;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
@@ -23,10 +24,15 @@ public class ItemDaoImpl implements ItemDao {
     private List<Integer> itemBorrowDays = new ArrayList<>();
 
     @Override
-    public List<Item> getItems() {
-        String sql = "SELECT * FROM item";
+    public List<Item> getItems(ItemType type) {
+        String sql = "SELECT * FROM item WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
+
+        if(type != null){
+            sql = sql + " AND type = :type";//AND 前面一定要加空白鍵
+            map.put("type",type.name());//因為type的類型本來是ENUM，要把它轉成字串所以要.name()
+        }
 
         List<Item> itemList = namedParameterJdbcTemplate.query(sql,map,new ItemRowMapper());
         return itemList;
