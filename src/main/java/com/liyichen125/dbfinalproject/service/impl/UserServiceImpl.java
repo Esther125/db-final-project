@@ -1,6 +1,7 @@
 package com.liyichen125.dbfinalproject.service.impl;
 
 import com.liyichen125.dbfinalproject.dao.UserDao;
+import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
 import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,12 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public String CreateUser(User user) {
-        return null;
+    public User getUserById(Integer user_id) {
+        return userDao.getUserById(user_id);
+    }
+
+    @Override
+    public Integer register(UserRegisterRequest userRegisterRequest) {
+        return userDao.createUser(userRegisterRequest);
     }
 }

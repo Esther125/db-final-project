@@ -5,9 +5,9 @@ import com.sun.istack.internal.NotNull;
 public class User {
 
     @NotNull
-    Integer userId;
+    Integer user_id;
     String name;
-    String role;
+    Integer role;
     Integer point;
     String phoneNumber;
     @NotNull
@@ -16,15 +16,15 @@ public class User {
     @NotNull
     String password;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUser_id() {
+        return user_id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getRole() {
+    public Integer getRole() {
         return role;
     }
 
@@ -48,15 +48,15 @@ public class User {
         return password;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setRole(String role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 

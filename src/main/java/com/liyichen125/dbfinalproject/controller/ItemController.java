@@ -10,9 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Controller
@@ -23,25 +26,17 @@ public class ItemController {
     //查詢商品列表
     @GetMapping("/items")
     public ResponseEntity<List<Item>> getItems(
-            //把 type改成非必要的參數
+            //利用條件篩選物品
             @RequestParam(required = false) ItemType type,
             @RequestParam(required = false) ItemStatus status,
+
+            //利用關鍵字查詢物品
             @RequestParam(required = false) String search
 
             ){
          List<Item> itemList = itemService.getItems(type,status,search);
          return ResponseEntity.status(HttpStatus.OK).body(itemList);
     }
-    //利用狀態查詢 Item
-//    @GetMapping("/items/{status}")
-//    public ResponseEntity<Item> getItemByStatus(@PathVariable Integer status){
-//        Item item = itemService.getItemByStatus(status);
-//        if (item != null){
-//            return ResponseEntity.status(HttpStatus.OK).body(item);
-//        }else{
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//    }
 
 
     //創建 Item
