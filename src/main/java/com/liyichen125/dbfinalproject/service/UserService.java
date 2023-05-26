@@ -1,7 +1,10 @@
 package com.liyichen125.dbfinalproject.service;
 
+import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
 import com.liyichen125.dbfinalproject.model.User;
 
 public interface UserService {
-    String CreateUser(User user);
+    User getUserById(Integer user_id);
+    Integer register(UserRegisterRequest userRegisterRequest);
+
 }

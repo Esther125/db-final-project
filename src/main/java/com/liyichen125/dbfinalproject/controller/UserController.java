@@ -1,13 +1,19 @@
 package com.liyichen125.dbfinalproject.controller;
 
+import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
 import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 public class UserController {
@@ -17,11 +23,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("users/register")
+    public ResponseEntity<User> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest){
+        Integer user_id = userService.register(userRegisterRequest);
+        User user = userService.getUserById(user_id);
 
-    //改post
-    @PostMapping("/users") //設置url路徑對應到此方法上，並限制只能使用Post方法,
-    public String create(@RequestBody User user){ //使用@RequestBody取得前端requestBody資訊
-
-        return userService.CreateUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
+
+
+
 }

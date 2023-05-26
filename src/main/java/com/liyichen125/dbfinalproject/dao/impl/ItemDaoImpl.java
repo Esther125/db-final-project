@@ -52,22 +52,6 @@ public class ItemDaoImpl implements ItemDao {
         return itemList;
     }
 
-//    @Override
-//    public Item getItemByStatus(Integer status) {
-//        String sql = "select * from item where status = :status";
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("status",status);
-//
-//        List<Item> itemList = namedParameterJdbcTemplate.query(sql, map, new ItemRowMapper());
-//
-//        if(itemList.size()>0){
-//
-//            return itemList.get(0);
-//        }else{
-//            return null;
-//        }
-//
-//    }
 
     @Override
     public Item getItemById(Integer item_id) {
