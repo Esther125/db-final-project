@@ -44,13 +44,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(UserLoginRequest userLoginRequest) {
         User user = userDao.getUserById(userLoginRequest.getUser_id());
-
+        // 檢查使用者有沒有註冊過
         if(user == null){
             log.warn("該id尚未註冊");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        if(user.getPassword().equals(userLoginRequest.getPassword())){
+        // 密碼加密
+        String hashedPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
+
+        //檢查密碼
+        if(user.getPassword().equals(hashedPassword)){
             return user;
         }else{
             log.warn("密碼錯誤");
