@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.internal.NotNull;
 
 public class User {
@@ -10,10 +11,10 @@ public class User {
     Integer role;
     Integer point;
     String phoneNumber;
-    @NotNull
     String roomNumber;
     String departmentGrade;
-    @NotNull
+    // 隱藏變數
+    @JsonIgnore
     String password;
 
     public Integer getUser_id() {

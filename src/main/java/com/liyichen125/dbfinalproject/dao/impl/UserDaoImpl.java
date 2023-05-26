@@ -41,11 +41,16 @@ public class UserDaoImpl  implements UserDao {
     // 使用者創建新帳戶
     @Override
     public Integer createUser(UserRegisterRequest userRegisterRequest) {
-        String sql = "INSERT INTO user(user_id,password)" +
-                " VALUES (:user_id,:password)";
+        String sql = "INSERT INTO user(user_id,name,role,phoneNum,roomNum,department_grade,password)" +
+                " VALUES (:user_id,:name,:role,:phoneNum,:roomNum,:department_grade,:password)";
 
         Map<String, Object> map = new HashMap<>();
         map.put("user_id",userRegisterRequest.getUser_id());
+        map.put("name",userRegisterRequest.getName());
+        map.put("role",userRegisterRequest.getRole());
+        map.put("phoneNum",userRegisterRequest.getPhoneNum());
+        map.put("roomNum",userRegisterRequest.getRoomNum());
+        map.put("department_grade",userRegisterRequest.getDepartment_grade());
         map.put("password",userRegisterRequest.getPassword());
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map));
