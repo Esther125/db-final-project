@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,10 +33,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @PostMapping("/users/login")
-    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest){
+    @PostMapping("/users/login") //@RequestBody @Valid拿掉了
+    public ResponseEntity<User> login( UserLoginRequest userLoginRequest){
         User user = userService.login(userLoginRequest);
-
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 

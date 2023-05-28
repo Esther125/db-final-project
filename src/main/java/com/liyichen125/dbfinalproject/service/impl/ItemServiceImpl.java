@@ -23,11 +23,6 @@ public class ItemServiceImpl implements ItemService {
         return itemDao.getItems(type,status,search);
     }
 
-//    @Override
-//    public Item getItemByStatus(Integer status) {
-//        return itemDao.getItemByStatus(status);
-//    }
-
     @Override
     public Item getItemById(Integer itemId) {
         return itemDao.getItemById(itemId);
