@@ -33,10 +33,16 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @PostMapping("/users/login") //@RequestBody @Valid拿掉了
-    public ResponseEntity<User> login( UserLoginRequest userLoginRequest){
-        User user = userService.login(userLoginRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(user);
-    }
+//    @PostMapping("/users/login") //@RequestBody @Valid拿掉了
+//    public ResponseEntity<User> login( UserLoginRequest userLoginRequest){
+//        User user = userService.login(userLoginRequest);
+//        return ResponseEntity.status(HttpStatus.OK).body(user);
+//    }
+//    @PostMapping("/users/login")
+//    public ResponseEntity<User> login(UserLoginRequest userLoginRequest) {
+//        User user = userService.login(userLoginRequest);
+//        return ResponseEntity.status(HttpStatus.OK).body(user);
+//    }
+
 
 }
