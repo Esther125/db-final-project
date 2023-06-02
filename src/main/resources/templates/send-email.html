@@ -1,34 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Mail Sender</title>
+    <title>Email Sender</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<button id="sendEmail">發送郵件</button>
+<h1>Email Sender</h1>
+<label for="recipient">Recipient:</label><br>
+<input type="text" id="recipient" name="recipient"><br>
+<button id="sendEmail">Send Email</button>
 
 <script th:inline="javascript">
-    $(document).ready(function(){
-        $("#sendEmail").click(function(){
-            $.ajax({
-                url: "http://localhost:8080/send-email",
-                type: "POST",
-                data: {
-                    to: "friday50523@gmail.com",
-                    subject: "Test Subject",
-                    content: "Test Content"
-                },
-                success: function() {
-                    alert("Email sent successfully!");
-                },
-                error: function() {
-                    alert("Failed to send email.");
-                }
+        $(document).ready(function(){
+            $("#sendEmail").click(function(){
+                const recipient = $("#recipient").val();
+
+                $.ajax({
+                    url: "http://localhost:8080/send-email",
+                    type: "POST",
+                    data: {
+                        to: recipient,
+                        subject: "[Dormy 系統歸還物品提醒]",
+                        content: `[${recipient}]，您的物品借用期限將到，請盡快將物品歸還給宿舍，謝謝您`
+                    },
+                    success: function() {
+                        alert("Email sent successfully!");
+                    },
+                    error: function() {
+                        alert("Failed to send email.");
+                    }
+                });
             });
         });
-    });
-</script>
-
-
+    </script>
 </body>
 </html>
+
