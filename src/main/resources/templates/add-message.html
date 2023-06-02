@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Message</title>
+</head>
+<body>
+
+<h2>新增留言</h2>
+<form action="#" th:action="@{/add-message-success}" th:object="${MessageRequest}" method="post">
+    <input type="hidden" name="success" value="true" />
+    使用者ID：<input type="text" th:field="*{user_id}"/><BR><BR>
+    <textarea rows="4" cols="50" th:field="*{content}" placeholder="請在此輸入留言"></textarea><BR>
+    <input type="submit"/>
+</form>
+</body>
+</html>
