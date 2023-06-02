@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title>Add Item</title>
 </head>
 <body>
 
-<h2>登入/登出</h2>
-<form action="#" th:action="@{/users/login-success}" th:object="${UserLoginRequest}" method="post">
+<h2>新增物品-管理員</h2>
+<form action="#" th:action="@{/items/add-item-success}" th:object="${ItemRequest}" method="post">
     <input type="hidden" name="success" value="true" />
     使用者ID：<input type="text" th:field="*{user_id}"/><BR>
     密碼： <input type="password" th:field="*{password}"/><BR>

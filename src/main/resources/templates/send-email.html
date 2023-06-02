@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mail Sender</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<button id="sendEmail">發送郵件</button>
+
+<script th:inline="javascript">
+    $(document).ready(function(){
+        $("#sendEmail").click(function(){
+            $.ajax({
+                url: "http://localhost:8080/send-email",
+                type: "POST",
+                data: {
+                    to: "friday50523@gmail.com",
+                    subject: "Test Subject",
+                    content: "Test Content"
+                },
+                success: function() {
+                    alert("Email sent successfully!");
+                },
+                error: function() {
+                    alert("Failed to send email.");
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
