@@ -20,7 +20,7 @@ public class LoginPageController {
     @GetMapping("/users/login")
     public String showLoginForm(Model model) {
         model.addAttribute("UserLoginRequest", new UserLoginRequest());
-        return "login";
+        return "login-student";
     }
 
     //登入成功的歡迎頁面
