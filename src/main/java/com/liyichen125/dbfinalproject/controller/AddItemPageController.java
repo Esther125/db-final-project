@@ -1,5 +1,7 @@
 package com.liyichen125.dbfinalproject.controller;
 
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
+import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.dto.UserLoginRequest;
 import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
@@ -27,15 +29,24 @@ public class AddItemPageController {
 
     @GetMapping("/items/add-item")
     public String showAddItemForm(Model model) {
-        model.addAttribute("itemRequest", new ItemRequest());
+        model.addAttribute("ItemRequest", new ItemRequest());
         return "add-item";
     }
 
     @PostMapping("/items/add-item-success")
     public String registerSuccess(@ModelAttribute("ItemRequest") ItemRequest itemRequest, Model model) {
-        model.addAttribute("ItemRequest", new ItemRequest());
         Integer item_id = itemService.createItem(itemRequest);
         model.addAttribute("item_id", item_id);
         return "item-add-success";
+    }
+
+    //配合下拉選單，拿出所有 ENUM值
+    @ModelAttribute("itemTypes")
+    public ItemType[] getItemTypes() {
+        return ItemType.values();
+    }
+    @ModelAttribute("itemStatus")
+    public ItemStatus[] getItemStatus() {
+        return ItemStatus.values();
     }
 }

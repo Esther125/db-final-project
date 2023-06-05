@@ -13,7 +13,7 @@ public class ItemRequest {
     private ItemType type;
     @NotNull
     private ItemStatus status;
-    @NotNull
+
     private Integer borrow_day;
     @NotNull
     private Integer tenure;
