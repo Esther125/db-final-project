@@ -13,12 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -33,12 +31,12 @@ public class AddItemPageController {
         return "add-item";
     }
 
-    @PostMapping("/items/add-item-success")
-    public String registerSuccess(@ModelAttribute("ItemRequest") ItemRequest itemRequest, Model model) {
-        Integer item_id = itemService.createItem(itemRequest);
-        model.addAttribute("item_id", item_id);
-        return "item-add-success";
-    }
+//    @PostMapping("/items/add-item-success")
+//    public String registerSuccess(@ModelAttribute("ItemRequest") ItemRequest itemRequest, Model model) {
+//        Integer item_id = itemService.createItem(itemRequest);
+//        model.addAttribute("item_id", item_id);
+//        return "item-add-success";
+//    }
 
     //配合下拉選單，拿出所有 ENUM值
     @ModelAttribute("itemTypes")
@@ -49,4 +47,16 @@ public class AddItemPageController {
     public ItemStatus[] getItemStatus() {
         return ItemStatus.values();
     }
+
+    @PostMapping("/items/add-item-success")
+    public String showSuccessPage(Model model,
+                                  @RequestParam(required = false) ItemType type,
+                                  @RequestParam(required = false) ItemStatus status,
+                                  @RequestParam(required = false) String search) {
+
+        List<Item> items = itemService.getItems(type,status,search);
+        model.addAttribute("items", items);
+        return "add-item-success";
+    }
+
 }

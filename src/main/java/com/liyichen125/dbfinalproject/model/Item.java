@@ -10,7 +10,7 @@ public class Item {
     //可以知道商品到底有那些分類
     private ItemType type;
     private ItemStatus status;
-    private Integer borrow_days;
+    private Integer borrow_day;
     private Date purchase_date;
     private Integer tenure;
     private Integer compensation_price;
@@ -49,11 +49,11 @@ public class Item {
     }
 
     public Integer getBorrow_day() {
-        return borrow_days;
+        return borrow_day;
     }
 
     public void setBorrow_day(Integer borrow_day) {
-        this.borrow_days = borrow_day;
+        this.borrow_day = borrow_day;
     }
 
     public Date getPurchase_date() {
