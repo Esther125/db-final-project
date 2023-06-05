@@ -24,19 +24,19 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
     //查詢商品列表
-    @GetMapping("/items")
-    public ResponseEntity<List<Item>> getItems(
-            //利用條件篩選物品
-            @RequestParam(required = false) ItemType type,
-            @RequestParam(required = false) ItemStatus status,
-
-            //利用關鍵字查詢物品
-            @RequestParam(required = false) String search
-
-            ){
-         List<Item> itemList = itemService.getItems(type,status,search);
-         return ResponseEntity.status(HttpStatus.OK).body(itemList);
-    }
+//    @GetMapping("/items")
+//    public ResponseEntity<List<Item>> getItems(
+//            //利用條件篩選物品
+//            @RequestParam(required = false) ItemType type,
+//            @RequestParam(required = false) ItemStatus status,
+//
+//            //利用關鍵字查詢物品
+//            @RequestParam(required = false) String search
+//
+//            ){
+//         List<Item> itemList = itemService.getItems(type,status,search);
+//         return ResponseEntity.status(HttpStatus.OK).body(itemList);
+//    }
 
 
     //創建 Item

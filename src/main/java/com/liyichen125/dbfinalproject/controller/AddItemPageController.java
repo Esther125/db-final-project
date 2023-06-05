@@ -25,35 +25,47 @@ public class AddItemPageController {
     @Autowired
     private ItemService itemService;
 
+    // 新增物品
     @GetMapping("/items/add-item")
     public String showAddItemForm(Model model) {
         model.addAttribute("ItemRequest", new ItemRequest());
         return "add-item";
     }
 
-//    @PostMapping("/items/add-item-success")
-//    public String registerSuccess(@ModelAttribute("ItemRequest") ItemRequest itemRequest, Model model) {
-//        Integer item_id = itemService.createItem(itemRequest);
-//        model.addAttribute("item_id", item_id);
-//        return "item-add-success";
-//    }
-
     //配合下拉選單，拿出所有 ENUM值
     @ModelAttribute("itemTypes")
     public ItemType[] getItemTypes() {
         return ItemType.values();
     }
+
+    //配合下拉選單，拿出所有 ENUM值
     @ModelAttribute("itemStatus")
     public ItemStatus[] getItemStatus() {
         return ItemStatus.values();
     }
 
+    //新增物品成功
     @PostMapping("/items/add-item-success")
     public String showSuccessPage(Model model,
                                   @RequestParam(required = false) ItemType type,
                                   @RequestParam(required = false) ItemStatus status,
                                   @RequestParam(required = false) String search) {
 
+        List<Item> items = itemService.getItems(type,status,search);
+        model.addAttribute("items", items);
+        return "add-item-success";
+    }
+
+    @GetMapping("/items")
+    public String getAllItems(Model model,
+            //利用條件篩選物品
+            @RequestParam(required = false) ItemType type,
+            @RequestParam(required = false) ItemStatus status,
+            //利用關鍵字查詢物品
+            @RequestParam(required = false) String search
+
+    ){
+//        List<Item> itemList = itemService.getItems(type,status,search);
         List<Item> items = itemService.getItems(type,status,search);
         model.addAttribute("items", items);
         return "add-item-success";
