@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -44,18 +45,24 @@ public class AddItemPageController {
         return ItemStatus.values();
     }
 
-    //新增物品成功
+    //新增物品成功後跳轉到物品管理頁面
     @PostMapping("/items/add-item-success")
     public String showSuccessPage(Model model,
+                                  @ModelAttribute("ItemRequest") ItemRequest itemRequest,
                                   @RequestParam(required = false) ItemType type,
                                   @RequestParam(required = false) ItemStatus status,
-                                  @RequestParam(required = false) String search) {
+                                  @RequestParam(required = false) String search,
+                                  RedirectAttributes redirectAttributes) {
 
+        itemService.createItem(itemRequest);
         List<Item> items = itemService.getItems(type,status,search);
         model.addAttribute("items", items);
-        return "add-item-success";
+        redirectAttributes.addFlashAttribute("success", true);
+//        return "add-item-success";
+        return "redirect:/items";
     }
 
+    //物品管理頁面
     @GetMapping("/items")
     public String getAllItems(Model model,
             //利用條件篩選物品
@@ -68,7 +75,34 @@ public class AddItemPageController {
 //        List<Item> itemList = itemService.getItems(type,status,search);
         List<Item> items = itemService.getItems(type,status,search);
         model.addAttribute("items", items);
-        return "add-item-success";
+        return "show-all-items";
     }
+
+    //對物品做編輯
+    @GetMapping("/items/edit/{id}")
+    public String showEditForm(@PathVariable("id") Integer itemId, Model model) {
+        Item item = itemService.getItemById(itemId);
+        // 需要创建一个从Item对象到ItemRequest对象的转换方法
+        ItemRequest itemRequest = itemService.convertToItemRequest(item);
+        model.addAttribute("ItemRequest", itemRequest);
+        return "edit-item";
+    }
+
+    //提交編輯物品表單
+    @PostMapping("/items/edit/{id}-success")
+    public String updateItem(@PathVariable("id") Integer itemId,
+                             @ModelAttribute("ItemRequest") ItemRequest itemRequest,
+                             RedirectAttributes redirectAttributes) {
+        // 需要创建一个从ItemRequest对象到Item对象的转换方法
+
+        // 更新物品
+        itemService.updateItem(itemId, itemRequest);
+
+        redirectAttributes.addFlashAttribute("success", true);
+        return "redirect:/items";
+    }
+
+
+
 
 }

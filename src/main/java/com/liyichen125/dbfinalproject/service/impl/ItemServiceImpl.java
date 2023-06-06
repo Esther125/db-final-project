@@ -34,11 +34,41 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public void updateItem(Integer item_id, ItemRequest itemRequest){
-        itemDao.updateItem(item_id,itemRequest);
+        Item item = convertToItem(itemRequest);
+        itemDao.updateItem(item_id, item);
     }
+
 
     @Override
     public void deleteItemById(Integer item_id) {
         itemDao.deleteItemById(item_id);
     }
+
+    public ItemRequest convertToItemRequest(Item item) {
+        ItemRequest itemRequest = new ItemRequest();
+
+        // 假设你的Item和ItemRequest类都有以下字段
+        itemRequest.setItem_name(item.getItem_name());
+        itemRequest.setType(item.getType());
+        itemRequest.setStatus(item.getStatus());
+        itemRequest.setBorrow_day(item.getBorrow_day());
+        itemRequest.setTenure(item.getTenure());
+        itemRequest.setCompensation_price(item.getCompensation_price());
+
+        return itemRequest;
+    }
+
+    public Item convertToItem(ItemRequest itemRequest) {
+        Item item = new Item();
+
+        item.setItem_name(itemRequest.getItem_name());
+        item.setType(itemRequest.getType());
+        item.setStatus(itemRequest.getStatus());
+        item.setBorrow_day(itemRequest.getBorrow_day());
+        item.setTenure(itemRequest.getTenure());
+        item.setCompensation_price(itemRequest.getCompensation_price());
+
+        return item;
+    }
+
 }

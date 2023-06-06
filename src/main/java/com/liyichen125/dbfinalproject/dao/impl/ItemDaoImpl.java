@@ -102,7 +102,7 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     @Override
-    public void updateItem(Integer item_id, ItemRequest itemRequest) {
+    public void updateItem(Integer item_id, Item item) {
         String sql = "UPDATE item SET type = :type, status = :status," +
                 "borrow_day = :borrow_day," +
                 "tenure = :tenure, compensation_price = :compensation_price, item_name = :item_name" +
@@ -110,17 +110,17 @@ public class ItemDaoImpl implements ItemDao {
 
         Map<String,Object> map = new HashMap<>();
         map.put("item_id",item_id);
-        map.put("type",itemRequest.getType().toString());
-        map.put("status",itemRequest.getStatus().toString());
-        map.put("borrow_day",itemRequest.getBorrow_day());
+        map.put("type",item.getType().toString());
+        map.put("status",item.getStatus().toString());
+        map.put("borrow_day",item.getBorrow_day());
 
         // 紀錄當下日期
 //        Date now = new Date();
 //        map.put("purchase_date",now);
 
-        map.put("tenure",itemRequest.getTenure());
-        map.put("compensation_price",itemRequest.getCompensation_price());
-        map.put("item_name",itemRequest.getItem_name());
+        map.put("tenure",item.getTenure());
+        map.put("compensation_price",item.getCompensation_price());
+        map.put("item_name",item.getItem_name());
 
         namedParameterJdbcTemplate.update(sql, map);
 

@@ -14,4 +14,6 @@ public interface ItemService {
     Integer createItem(ItemRequest itemRequest);
     void updateItem(Integer item_id, ItemRequest itemRequest);
     void deleteItemById(Integer item_id);
+    ItemRequest convertToItemRequest(Item item);
+    Item convertToItem(ItemRequest itemRequest);
 }

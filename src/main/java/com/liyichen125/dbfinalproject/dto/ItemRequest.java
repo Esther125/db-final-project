@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class ItemRequest {
     // 這邊只有前端傳回來的(可以更改的)值，沒有date 也沒有id
+    private Integer item_id;
     @NotNull
     private ItemType type;
     @NotNull
@@ -22,6 +23,14 @@ public class ItemRequest {
 
     @NotNull
     private String item_name;
+
+    public Integer getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
+    }
 
     public String getItem_name() {
         return item_name;
