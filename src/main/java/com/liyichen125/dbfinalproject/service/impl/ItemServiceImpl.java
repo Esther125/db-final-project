@@ -8,6 +8,7 @@ import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,9 +34,12 @@ public class ItemServiceImpl implements ItemService {
         return itemDao.createItem(itemRequest);
     }
 
+
     public void updateItem(Integer item_id, ItemRequest itemRequest){
         Item item = convertToItem(itemRequest);
         itemDao.updateItem(item_id, item);
+        System.out.println(item.getItem_name());
+        System.out.println(item_id);
     }
 
 

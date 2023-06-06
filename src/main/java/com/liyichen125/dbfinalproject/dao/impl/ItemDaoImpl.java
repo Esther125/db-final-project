@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -101,6 +102,7 @@ public class ItemDaoImpl implements ItemDao {
         return item_id;
     }
 
+    @Transactional
     @Override
     public void updateItem(Integer item_id, Item item) {
         String sql = "UPDATE item SET type = :type, status = :status," +

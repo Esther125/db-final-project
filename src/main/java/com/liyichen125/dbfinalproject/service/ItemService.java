@@ -4,6 +4,7 @@ import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
