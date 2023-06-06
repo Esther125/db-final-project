@@ -1,7 +1,9 @@
 package com.liyichen125.dbfinalproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.internal.NotNull;
+//import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
+
 
 public class User {
 

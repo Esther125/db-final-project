@@ -18,7 +18,7 @@ public class RecordController {
     private RecordService recordService;
 
     @PostMapping("users/{user_id}/records")
-    public ResponseEntity<?> createRecord(@PathVariable Integer user_id,
+    public ResponseEntity<?> createRecord (@PathVariable Integer user_id,
                                           @RequestBody @Valid RecordRequest recordRequest){
         Integer record_id = recordService.createRecord(user_id, recordRequest);
 

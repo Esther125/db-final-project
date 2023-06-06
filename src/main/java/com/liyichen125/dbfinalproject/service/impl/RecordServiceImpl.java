@@ -15,6 +15,7 @@ public class RecordServiceImpl implements RecordService {
     @Transactional //修改多個table時確保數據一致
     @Override
     public Integer createRecord(Integer user_id, RecordRequest recordRequest) {
+
         return user_id;
     }
 }

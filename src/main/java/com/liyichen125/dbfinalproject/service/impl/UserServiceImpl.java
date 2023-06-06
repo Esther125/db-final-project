@@ -1,17 +1,20 @@
 package com.liyichen125.dbfinalproject.service.impl;
 
+
+
 import com.liyichen125.dbfinalproject.dao.UserDao;
 import com.liyichen125.dbfinalproject.dto.UserLoginRequest;
 import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
 import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.UserService;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
+
 
 @Component
 public class UserServiceImpl implements UserService {
