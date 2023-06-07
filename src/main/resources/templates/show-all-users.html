@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<h2>使用者管理</h2>
+<h3>現有使用者：</h3>
+<table>
+    <thead>
+    <tr>
+        <th>使用者ID</th>
+        <th>姓名</th>
+        <th>角色</th>
+        <th>點數</th>
+        <th>電話號碼</th>
+        <th>房間號碼</th>
+        <th>系級</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.user_id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.point}"></td>
+        <td th:text="${user.phoneNumber}"></td>
+        <td th:text="${user.roomNumber}"></td>
+        <td th:text="${user.departmentGrade}"></td>
+        <td><a th:href="@{/users/profile/{id}(id=${user.user_id})}">查看</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

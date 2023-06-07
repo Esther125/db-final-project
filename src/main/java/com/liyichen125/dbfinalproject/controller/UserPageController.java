@@ -1,0 +1,94 @@
+package com.liyichen125.dbfinalproject.controller;
+
+import com.liyichen125.dbfinalproject.constant.ItemStatus;
+import com.liyichen125.dbfinalproject.constant.ItemType;
+import com.liyichen125.dbfinalproject.dto.ItemRequest;
+import com.liyichen125.dbfinalproject.dto.UserLoginRequest;
+import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
+import com.liyichen125.dbfinalproject.model.Item;
+import com.liyichen125.dbfinalproject.model.User;
+import com.liyichen125.dbfinalproject.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
+@Controller
+public class UserPageController {
+    @Autowired
+    private UserService userService;
+
+    //使用者登入頁面
+    @GetMapping("/users/login")
+    public String showLoginForm(Model model) {
+        model.addAttribute("UserLoginRequest", new UserLoginRequest());
+        return "login";
+    }
+
+    //登入成功的歡迎頁面
+    @PostMapping("/users/login-success")
+    public String loginSuccess(@ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest, Model model) {
+        User user = userService.login(userLoginRequest);
+        model.addAttribute("user", user);
+
+        if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
+            return "student-homepage";
+        } else if (user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
+            return "admin-homepage";
+        } else {
+            return "login"; // 如果角色无效，重定向回登录页面
+        }
+
+
+    }
+
+    //註冊介面
+    @GetMapping("/users/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("UserRegisterRequest", new UserRegisterRequest());
+        return "register";
+    }
+
+    //註冊成功
+    @PostMapping("/users/register-success")
+    public String registerSuccess(@ModelAttribute("UserRegisterRequest") UserRegisterRequest userRegisterRequest, Model model) {
+        model.addAttribute("UserRegisterRequest", new UserRegisterRequest());
+        Integer user_id = userService.register(userRegisterRequest);
+        model.addAttribute("user_id", user_id);
+        return "register-success";
+    }
+
+    //會員管理頁面 - 管理員
+    @GetMapping("/users/management")
+    public String getAllItems2(Model model){
+//        List<Item> itemList = itemService.getItems(type,status,search);
+        List<User> users = userService.getUsers();
+        model.addAttribute("users", users);
+        return "show-all-users";
+    }
+
+    //登出
+    @GetMapping("/users/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/users/login";
+    }
+
+    //查看學生個人頁面 - 管理員
+    @GetMapping("users/profile/{user_id}")
+    public String showProfile(@PathVariable("user_id") Integer user_id, Model model) {
+        User user = userService.getUserById(user_id);
+        // 需要创建一个从Item对象到ItemRequest对象的转换方法
+        model.addAttribute("user", user);
+        return "user-profile";
+    }
+
+
+
+
+
+}

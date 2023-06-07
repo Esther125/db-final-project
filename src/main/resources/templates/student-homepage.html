@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+    <style>
+        /* Add some basic styling for the buttons */
+        .admin-btn {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            background-color: lightgray;
+            cursor: pointer;
+        }
+
+        .admin-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add a container for the buttons and make them display inline using flexbox */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<h1>學生介面</h1>
+<p th:text="'Welcome, ' + ${user.name}"></p>
+<div class="button-container">
+    <a href="/items2">
+        <button class="admin-btn">借還物品登記</button>
+    </a>
+
+    <button class="admin-btn">留言板</button>
+    <a href="/users/management">
+        <button class="admin-btn">個人頁面</button>
+    </a>
+    <a href="/users/logout">
+        <button class="admin-btn">登出</button>
+    </a>
+
+</div>
+</body>
+</html>

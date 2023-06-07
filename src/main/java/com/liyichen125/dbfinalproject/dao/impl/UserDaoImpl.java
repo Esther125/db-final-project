@@ -2,7 +2,9 @@ package com.liyichen125.dbfinalproject.dao.impl;
 
 import com.liyichen125.dbfinalproject.dao.UserDao;
 import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
+import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.model.User;
+import com.liyichen125.dbfinalproject.rowmapper.ItemRowMapper;
 import com.liyichen125.dbfinalproject.rowmapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -47,7 +49,8 @@ public class UserDaoImpl  implements UserDao {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id",userRegisterRequest.getUser_id());
         map.put("name",userRegisterRequest.getName());
-        map.put("role",userRegisterRequest.getRole());
+
+        map.put("role",userRegisterRequest.getRole().toString());
         map.put("phoneNum",userRegisterRequest.getPhoneNum());
         map.put("roomNum",userRegisterRequest.getRoomNum());
         map.put("department_grade",userRegisterRequest.getDepartment_grade());
@@ -58,4 +61,16 @@ public class UserDaoImpl  implements UserDao {
         return userRegisterRequest.getUser_id();
 
     }
+
+    @Override
+    public List<User> getUsers(){
+        String sql = "SELECT * FROM user;";
+
+        Map<String, Object> map = new HashMap<>();
+
+        List<User> userList = namedParameterJdbcTemplate.query(sql,map,new UserRowMapper());
+
+        return userList;
+    }
+
 }

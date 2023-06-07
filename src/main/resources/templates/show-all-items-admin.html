@@ -36,8 +36,8 @@
     <tr th:each="item : ${items}">
         <td th:text="${item.item_id}"></td>
         <td th:text="${item.item_name}"></td>
-        <td th:text="${item.type}"></td>
-        <td th:text="${item.status}"></td>
+        <td th:text="${item.type.displayName}"></td>
+        <td th:text="${item.status.displayName}"></td>
         <td th:text="${item.borrow_day}"></td>
         <td th:text="${#dates.format(item.purchase_date, 'yyyy-MM-dd')}"></td>
         <td th:text="${item.tenure}"></td>

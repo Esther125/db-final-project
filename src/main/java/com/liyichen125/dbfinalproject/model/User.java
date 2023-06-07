@@ -1,6 +1,7 @@
 package com.liyichen125.dbfinalproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.liyichen125.dbfinalproject.constant.UserRole;
 import com.sun.istack.internal.NotNull;
 
 public class User {
@@ -8,7 +9,7 @@ public class User {
     @NotNull
     Integer user_id;
     String name;
-    Integer role;
+    UserRole role;
     Integer point;
     String phoneNumber;
     String roomNumber;
@@ -25,7 +26,7 @@ public class User {
         return name;
     }
 
-    public Integer getRole() {
+    public UserRole getRole() {
         return role;
     }
 
@@ -57,7 +58,7 @@ public class User {
         this.name = name;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 

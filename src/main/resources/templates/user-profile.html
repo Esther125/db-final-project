@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+
+<h2>學生個人資訊頁面</h2>
+<table>
+    <tr>
+        <td>學生ID:</td>
+        <td th:text="${user.user_id}"></td>
+    </tr>
+    <tr>
+        <td>姓名:</td>
+        <td th:text="${user.name}"></td>
+    </tr>
+    <tr>
+        <td>角色:</td>
+        <td th:text="${user.role}"></td>
+    </tr>
+    <tr>
+        <td>點數:</td>
+        <td th:text="${user.point}"></td>
+    </tr>
+    <tr>
+        <td>電話號碼:</td>
+        <td th:text="${user.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <td>房間號碼:</td>
+        <td th:text="${user.roomNumber}"></td>
+    </tr>
+    <tr>
+        <td>系級:</td>
+        <td th:text="${user.departmentGrade}"></td>
+    </tr>
+</table>
+
+<h2>學生借用紀錄</h2>
+<table id="borrowed_items_placeholder">
+    <!-- 在這裡添加學生的借用紀錄 -->
+    <!-- 这里需要自定义表格头部和行数据，例如：
+    <tr>
+        <th>物品ID</th>
+        <th>物品名稱</th>
+        <th>借出日期</th>
+        <th>归还日期</th>
+    </tr>
+    <tr th:each="record : ${user.borrow_records}">
+        <td th:text="${record.item_id}"></td>
+        <td th:text="${record.item_name}"></td>
+        <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
+    </tr>
+    -->
+</table>
+
+</body>
+</html>
+
+

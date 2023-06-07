@@ -6,6 +6,7 @@
 <!-- Main css -->
 <link rel="stylesheet" href="css/style.css">
 <style>
+
     /* @extend display-flex; */
 display-flex, .display-flex, .display-flex-center, .signup-content, .signin-content, .social-login, .socials {
   display: flex;
@@ -639,8 +640,13 @@ label.valid {
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{user_id}"/><BR>
                         姓名： <i
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{name}"/><BR>
-                        身分： <i
-                            class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{role}"/><BR>
+<!--                        身分： <i-->
+<!--                            class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{role}"/><BR>-->
+                        身分：
+                        <select th:field="*{role}">
+                            <option th:each="role : ${T(com.liyichen125.dbfinalproject.constant.UserRole).values()}" th:value="${role}" th:text="${role.displayName}"></option>
+                        </select><BR>
+
                         手機號碼： <i
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{phoneNum}"/><BR>
                         房號：<i
@@ -662,7 +668,7 @@ label.valid {
                 <figure>
                     <img src="/images/R.png" alt="sign up image">
                 </figure>
-                <a href="homepage.html" class="signup-image-link">已經有帳號?登錄</a>
+                <a href="/users/login" class="signup-image-link">已經有帳號?登錄</a>
             </div>
         </div>
     </section>

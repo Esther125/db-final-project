@@ -1,5 +1,7 @@
 package com.liyichen125.dbfinalproject.rowmapper;
 
+import com.liyichen125.dbfinalproject.constant.ItemType;
+import com.liyichen125.dbfinalproject.constant.UserRole;
 import com.liyichen125.dbfinalproject.model.User;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -12,7 +14,13 @@ public class UserRowMapper implements RowMapper<User> {
         User user = new User();
         user.setUser_id(resultSet.getInt("user_id"));
         user.setName(resultSet.getString("name"));
-        user.setRole(resultSet.getInt("role"));
+//        user.setRole(UserRole.valueOf(resultSet.getString("role")));
+
+        // String 和 ENUM之間的轉換
+        String roleStr = resultSet.getString("role");
+        UserRole role = UserRole.valueOf(roleStr);
+        user.setRole(role);
+
         user.setPoint(resultSet.getInt("point"));
         user.setPhoneNumber(resultSet.getString("phoneNum"));
         user.setRoomNumber(resultSet.getString("roomNum"));

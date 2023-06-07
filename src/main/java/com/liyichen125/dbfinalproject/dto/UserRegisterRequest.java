@@ -1,5 +1,6 @@
 package com.liyichen125.dbfinalproject.dto;
 
+import com.liyichen125.dbfinalproject.constant.UserRole;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
@@ -10,7 +11,7 @@ public class UserRegisterRequest {
     private Integer user_id;
     @NotNull
     private String name;
-    private Integer role;
+    private UserRole role;
     private String phoneNum;
     private String roomNum;
     private String department_grade;
@@ -25,11 +26,11 @@ public class UserRegisterRequest {
         this.name = name;
     }
 
-    public Integer getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 

@@ -3,30 +3,24 @@ package com.liyichen125.dbfinalproject.controller;
 import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
-import com.liyichen125.dbfinalproject.dto.UserLoginRequest;
-import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.service.ItemService;
-import com.liyichen125.dbfinalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
 @Controller
-public class AddItemPageController {
+public class ItemPageController {
 
     @Autowired
     private ItemService itemService;
 
-    // 新增物品
+    // 新增物品  - 管理員
     @GetMapping("/items/add-item")
     public String showAddItemForm(Model model) {
         model.addAttribute("ItemRequest", new ItemRequest());
@@ -45,7 +39,7 @@ public class AddItemPageController {
         return ItemStatus.values();
     }
 
-    //新增物品成功後跳轉到物品管理頁面
+    //新增物品成功後跳轉到物品管理頁面 - 管理員
     @PostMapping("/items/add-item-success")
     public String showSuccessPage(Model model,
                                   @ModelAttribute("ItemRequest") ItemRequest itemRequest,
@@ -62,7 +56,7 @@ public class AddItemPageController {
         return "redirect:/items";
     }
 
-    //物品管理頁面
+    //物品管理頁面 - 管理員
     @GetMapping("/items")
     public String getAllItems(Model model,
             //利用條件篩選物品
@@ -75,10 +69,10 @@ public class AddItemPageController {
 //        List<Item> itemList = itemService.getItems(type,status,search);
         List<Item> items = itemService.getItems(type,status,search);
         model.addAttribute("items", items);
-        return "show-all-items";
+        return "show-all-items-admin";
     }
 
-    //對物品做編輯
+    //對物品做編輯 - 管理員
     @GetMapping("/items/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer itemId, Model model) {
         Item item = itemService.getItemById(itemId);
@@ -89,7 +83,7 @@ public class AddItemPageController {
         return "edit-item";
     }
 
-    //提交編輯物品表單
+    //提交編輯物品表單 - 管理員
     @PostMapping("/items/edit/{id}-success")
     public String updateItem(@PathVariable("id") Integer itemId,
                              @ModelAttribute("ItemRequest") ItemRequest itemRequest,
@@ -105,6 +99,21 @@ public class AddItemPageController {
         return "redirect:/items";
     }
 
+    //物品管理頁面 - 學生
+    @GetMapping("/items2")
+    public String getAllItems2(Model model,
+                              //利用條件篩選物品
+                              @RequestParam(required = false) ItemType type,
+                              @RequestParam(required = false) ItemStatus status,
+                              //利用關鍵字查詢物品
+                              @RequestParam(required = false) String search
+
+    ){
+//        List<Item> itemList = itemService.getItems(type,status,search);
+        List<Item> items = itemService.getItems(type,status,search);
+        model.addAttribute("items", items);
+        return "show-all-items-student";
+    }
 
 
 
