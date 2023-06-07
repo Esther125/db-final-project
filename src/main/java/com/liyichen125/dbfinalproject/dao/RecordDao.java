@@ -7,6 +7,6 @@ import com.liyichen125.dbfinalproject.model.Record;
 import java.util.List;
 
 public interface RecordDao {
-    Integer createRecord(Integer user_id, RecordRequest recordRequest);
+    Integer createRecord(RecordRequest recordRequest);
     List<Record> getRecords(RecordSituation situation, String search);
 }

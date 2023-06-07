@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Record</title>
 </head>
 <body>
+<h1>Add Record</h1>
 
+
+<form action="#" th:action="@{/records/add-record-success}" th:object="${RecordRequest}" method="post">
+    <label for="item_id">Item ID:</label>
+    <input type="text" id="item_id" name="item_id" th:field="*{item_id}"><br><br>
+    <label for="user_id">User ID:</label>
+    <input type="text" id="user_id" name="user_id" th:field="*{user_id}"><br><br>
+
+    <label for="contact_person_id">Contact Person ID:</label>
+    <input type="text" id="contact_person_id" name="contact_person_id" th:field="*{contact_person_id}"><br><br>
+
+    <label>Record Situation:</label>
+    <select th:field="*{situation}">
+        <option th:each="situation : ${recordSituation}" th:value="${situation}" th:text="${situation.displayName}"></option>
+
+        <!-- Add options dynamically if needed -->
+    </select><br><br>
+
+    <label for="violation_type">Violation Type:</label>
+    <input type="text" id="violation_type" name="violation_type" th:field="*{violation_type}"><br><br>
+
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>

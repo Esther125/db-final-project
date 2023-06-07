@@ -29,7 +29,7 @@ public class RecordRowMapper implements RowMapper<Record> {
 
         //簡潔寫法
         //item.setType(ItemType.valueOf(resultSet.getString("category")));
-
+        record.setContact_person_id(resultSet.getInt("contact_person_id"));
         record.setItem_id(resultSet.getInt("item_id"));
         record.setBorrow_date(resultSet.getDate("borrow_date"));
         record.setUser_id(resultSet.getInt("user_id"));

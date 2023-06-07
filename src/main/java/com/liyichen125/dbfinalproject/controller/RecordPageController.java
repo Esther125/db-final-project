@@ -26,7 +26,9 @@ public class RecordPageController {
 
     @GetMapping("/records/add-record")
     public String showAddRecordForm(Model model) {
-        model.addAttribute("RecordRequest", new RecordRequest());
+        RecordRequest recordRequest = new RecordRequest();
+        model.addAttribute("RecordRequest",recordRequest);
+
         return "add-record";
     }
 
@@ -36,9 +38,9 @@ public class RecordPageController {
     }
 
     @PostMapping("/records/add-record-success")
-    public String showSuccessPage(Model model, @RequestParam(required = false) String search,
+    public String showSuccessPage(Model model, @ModelAttribute("RecordRequest")RecordRequest recordRequest, @RequestParam(required = false) String search,
                                   @RequestParam(required = false)RecordSituation situation) {
-
+        int record_id = recordService.createRecord(recordRequest);
         List<Record> records = recordService.getRecords(situation,search);
         model.addAttribute("records", records);
         return "add-record-success";

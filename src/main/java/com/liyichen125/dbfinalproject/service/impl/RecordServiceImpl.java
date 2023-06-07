@@ -21,9 +21,9 @@ public class RecordServiceImpl implements RecordService {
 
     @Transactional //修改多個table時確保數據一致
     @Override
-    public Integer createRecord(Integer user_id, RecordRequest recordRequest) {
-        recordDao.createRecord(user_id, recordRequest);
-        return user_id;
+    public Integer createRecord(RecordRequest recordRequest) {
+
+        return recordDao.createRecord(recordRequest);
     }
     @Override
     public List<Record> getRecords(RecordSituation situation, String search) {

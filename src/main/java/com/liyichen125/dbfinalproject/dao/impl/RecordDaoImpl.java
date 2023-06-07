@@ -27,17 +27,21 @@ public class RecordDaoImpl implements RecordDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Integer createRecord(Integer user_id, RecordRequest recordRequest) {
-        String sql = "INSERT INTO record(user_id,item_id,situation,borrow_date,return_date)" +
-                "VALUES (:user_id,:item_id,:situation,:borrow_date,:return_date)";
+    public Integer createRecord(RecordRequest recordRequest) {
+        String sql = "INSERT INTO dormy.record(user_id,item_id,contact_person_id,situation,borrow_date,return_date,violation_type)" +
+                "VALUES (:user_id,:item_id,:contact_person_id,:situation,:borrow_date,:return_date,:violation_type)";
 
         Map<String,Object> map = new HashMap<>();
-        map.put("user_id",user_id);
+        map.put("user_id",recordRequest.getUser_id());
         map.put("item_id", recordRequest.getItem_id());
-        map.put("situation", recordRequest.getSituation());
+        map.put("situation", recordRequest.getSituation().toString());
+
+        map.put("contact_person_id", recordRequest.getContact_person_id());
+        map.put("violation_type", recordRequest.getViolation_type());
 
         Date now = new Date();
         map.put("borrow_date",now);
+        map.put("return_date",now);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -49,7 +53,7 @@ public class RecordDaoImpl implements RecordDao {
     }
     @Override
     public List<Record> getRecords(RecordSituation situation, String search) {
-        String sql = "SELECT r.record_id,i.item_id, r.situation,r.contact_person_id,r.borrow_date,return_date,r.violation_type,u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
+        String sql = "SELECT r.record_id,i.item_id,r.situation,r.contact_person_id,r.borrow_date,return_date,r.violation_type,u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
 

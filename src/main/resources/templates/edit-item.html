@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Item</title>
+</head>
+<body>
+
+<h2>修改物品-管理員</h2>
+<form action="#" th:action="@{/items/edit/{id}-success(id=*{item_id})}" th:object="${ItemRequest}" method="post">
+  <input type="hidden" name="success" value="true" />
+  <input type="hidden" th:field="*{item_id}" />  <!-- 添加物品ID的隐藏字段 -->
+  物品名稱： <input type="text" th:field="*{item_name}"/><BR>
+  物品類型： <select th:field="*{type}">
+  <option th:each="type : ${itemTypes}" th:value="${type}" th:text="${type.displayName}"></option>
+</select><BR>
+  物品狀態： <select th:field="*{status}">
+  <option th:each="status : ${itemStatus}" th:value="${status}" th:text="${status.displayName}"></option>
+</select><BR>
+  物品可借用天數： <input type="text" th:field="*{borrow_day}"/><BR>
+  物品使用年限： <input type="text" th:field="*{tenure}"/><BR>
+  價格： <input type="text" th:field="*{compensation_price}"/><BR>
+  <input type="submit"/>
+</form>
+</body>
+</html>
