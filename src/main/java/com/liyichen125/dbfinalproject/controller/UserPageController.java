@@ -31,8 +31,14 @@ public class UserPageController {
 
     //登入成功的歡迎頁面
     @PostMapping("/users/login-success")
-    public String loginSuccess(@ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest, Model model) {
+    public String loginSuccess(HttpSession session,
+                               @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,
+                               Model model) {
         User user = userService.login(userLoginRequest);
+
+        // Store the user id in session after a successful login
+        session.setAttribute("user_id", user.getUser_id());
+
         model.addAttribute("user", user);
 
         if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
@@ -42,9 +48,8 @@ public class UserPageController {
         } else {
             return "login"; // 如果角色无效，重定向回登录页面
         }
-
-
     }
+
 
     //註冊介面
     @GetMapping("/users/register")
@@ -83,6 +88,23 @@ public class UserPageController {
     public String showProfile(@PathVariable("user_id") Integer user_id, Model model) {
         User user = userService.getUserById(user_id);
         // 需要创建一个从Item对象到ItemRequest对象的转换方法
+        model.addAttribute("user", user);
+        return "user-profile";
+    }
+
+//    @GetMapping("/users/self-profile")
+//    public String showSelfProfile(@PathVariable("user_id") Integer user_id, Model model) {
+//        User user = userService.getUserById(user_id);
+//        // 需要创建一个从Item对象到ItemRequest对象的转换方法
+//        model.addAttribute("user", user);
+//        return "user-profile";
+//    }
+
+    //查看個人頁面 - 學生
+    @GetMapping("/users/self-profile")
+    public String selfProfile(HttpSession session, Model model) {
+        Integer userId = (Integer) session.getAttribute("user_id");
+        User user = userService.getUserById(userId);
         model.addAttribute("user", user);
         return "user-profile";
     }

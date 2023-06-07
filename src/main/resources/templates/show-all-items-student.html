@@ -17,6 +17,19 @@
 </head>
 <body>
 <h2>物品管理</h2>
+
+<form th:action="@{/items/list}" method="get">
+    物品類型：
+    <select name="type">
+        <option th:each="type : ${itemTypes}" th:value="${type}" th:text="${type.displayName}"></option>
+    </select>
+    <input type="submit" value="Filter"/>
+</form>
+
+<!-- 返回按鈕 -->
+<button onclick="window.history.back();">返回</button>
+
+
 <h3>現有物品：</h3>
 <table>
     <thead>
