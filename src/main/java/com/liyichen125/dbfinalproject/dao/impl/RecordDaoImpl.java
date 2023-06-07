@@ -8,6 +8,7 @@ import com.liyichen125.dbfinalproject.dto.RecordRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.model.Record;
 import com.liyichen125.dbfinalproject.rowmapper.ItemRowMapper;
+import com.liyichen125.dbfinalproject.rowmapper.RecordRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -47,8 +48,8 @@ public class RecordDaoImpl implements RecordDao {
         return record_id;
     }
     @Override
-    public List<Record> getRecord(RecordSituation situation, String search) {
-        String sql = "SELECT u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
+    public List<Record> getRecords(RecordSituation situation, String search) {
+        String sql = "SELECT r.record_id,i.item_id, r.situation,r.contact_person_id,r.borrow_date,return_date,r.violation_type,u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
 
@@ -65,7 +66,7 @@ public class RecordDaoImpl implements RecordDao {
             map.put("search","%" + search + "%");
         }
 
-        List<Record> recordList = namedParameterJdbcTemplate.query(sql,map,new ItemRowMapper());
+        List<Record> recordList = namedParameterJdbcTemplate.query(sql,map,new RecordRowMapper());
         return recordList;
     }
 }

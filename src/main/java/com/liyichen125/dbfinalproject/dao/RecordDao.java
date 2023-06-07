@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RecordDao {
     Integer createRecord(Integer user_id, RecordRequest recordRequest);
-    List<Record> getRecord(RecordSituation situation, String search);
+    List<Record> getRecords(RecordSituation situation, String search);
 }
