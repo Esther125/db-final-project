@@ -1,10 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Item List</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script th:inline="javascript">
+        $(document).on("click",'.remove',function(){
+  console.log($(this).parent().parent().children('.account').text());
+  $.ajax({
+    type: 'DELETE',
+    url:apiurl + '/' + $(this).parent().parent().children('.account').text(),
+    success: function(){
+    $(this).parent().parent().remove();
+    window.location.reload();//刪除後重新整理視窗
+    }
+  });
+
+
+
         /*<![CDATA[*/
         var success = /*[[${success}]]*/ false;
         $(document).ready(function() {
@@ -13,14 +28,18 @@
             }
         });
         /*]]>*/
+
     </script>
+
 </head>
 <body>
 <h2>物品管理</h2>
 <!-- 新增物品按鈕 -->
 <button onclick="window.location.href='/items/add-item'">新增物品</button>
 <!-- 返回按鈕 -->
-<button onclick="window.history.back();">返回</button>
+<!--<button onclick="window.history.back();">返回</button>-->
+<button onclick="window.location.href='/users/login-success'">返回首頁</button>
+
 
 <h3>現有物品：</h3>
 
@@ -48,7 +67,10 @@
         <td th:text="${#dates.format(item.purchase_date, 'yyyy-MM-dd')}"></td>
         <td th:text="${item.tenure}"></td>
         <td th:text="${item.compensation_price}"></td>
-        <td><a th:href="@{/items/edit/{id}(id=${item.item_id})}">編輯</a></td>
+        <td>
+            <a th:href="@{/items/edit/{id}(id=${item.item_id})}">編輯</a>
+            <a th:href="@{/items/delete/{id}(id=${item.item_id})}">刪除</a>
+        </td>
     </tr>
     </tbody>
 </table>

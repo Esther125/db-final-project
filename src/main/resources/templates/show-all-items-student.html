@@ -18,16 +18,29 @@
 <body>
 <h2>物品管理</h2>
 
-<form th:action="@{/items/list}" method="get">
+<form th:action="@{/items2}" method="get">
     物品類型：
     <select name="type">
+        <option value="">預設</option>
         <option th:each="type : ${itemTypes}" th:value="${type}" th:text="${type.displayName}"></option>
     </select>
+
+    物品狀態：
+    <select name="status">
+        <option value="">預設</option>
+        <option th:each="status : ${itemStatuses}" th:value="${status}" th:text="${status.displayName}"></option>
+    </select>
+
+    搜索：
+    <input type="text" name="search" />
+
     <input type="submit" value="Filter"/>
 </form>
 
+
 <!-- 返回按鈕 -->
-<button onclick="window.history.back();">返回</button>
+<!--<button onclick="window.history.back();">返回</button>-->
+<button onclick="window.location.href='/users/login-success'">返回首頁</button>
 
 
 <h3>現有物品：</h3>
