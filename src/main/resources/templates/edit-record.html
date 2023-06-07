@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Record</title>
+</head>
+<body>
+
+<h2>修改记录-管理員</h2>
+<form action="/records/edit/{id}-success" th:action="@{/records/edit/{id}-success(id=*{record_id})}" th:object="${RecordRequest}" method="post">
+    <input type="hidden" name="success" value="true" />
+    <input type="hidden" th:field="*{record_id}" />  <!-- 添加记录ID的隐藏字段 -->
+    用户ID： <input type="text" th:field="*{user_id}"/><br>
+    联系人ID： <input type="text" th:field="*{contact_person_id}"/><br>
+    物品ID： <input type="text" th:field="*{item_id}"/><br>
+    记录情况： <select th:field="*{situation}">
+    <option th:each="situation : ${recordSituation}" th:value="${situation}" th:text="${situation.displayName}"></option>
+</select><br>
+
+    违规类型： <input type="text" th:field="*{violation_type}"/><br>
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

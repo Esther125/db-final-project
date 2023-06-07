@@ -12,10 +12,8 @@ import com.liyichen125.dbfinalproject.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -31,6 +29,20 @@ public class RecordPageController {
 
         return "add-record";
     }
+    @GetMapping("/records")
+    public String getAllRecords(Model model,
+                              //利用條件篩選物品
+
+                              @RequestParam(required = false) RecordSituation situation,
+                              //利用關鍵字查詢物品
+                              @RequestParam(required = false) String search
+
+    ){
+
+        List<Record> records = recordService.getRecords(situation,search);
+        model.addAttribute("records", records);
+        return "show-all-records";
+    }
 
     @ModelAttribute("recordSituation")
     public RecordSituation[] getRecordSituation() {
@@ -43,6 +55,29 @@ public class RecordPageController {
         int record_id = recordService.createRecord(recordRequest);
         List<Record> records = recordService.getRecords(situation,search);
         model.addAttribute("records", records);
-        return "add-record-success";
+        return "redirect:/records";
+    }
+    @GetMapping("/records/edit/{id}")
+    public String showEditForm(@PathVariable("id") Integer recordId, Model model) {
+        Record record = recordService.getRecordById(recordId);
+        // 需要创建一个从Item对象到ItemRequest对象的转换方法
+        RecordRequest recordRequest = recordService.covertToRecordRequest(record);
+        recordRequest.setRecord_id(recordId);
+        model.addAttribute("RecordRequest", recordRequest);
+        return "edit-record";
+    }
+    @PostMapping("/records/edit/{id}-success")
+    public String updateRecord(@PathVariable("id") Integer recordID,
+                             @ModelAttribute("RecordRequest") RecordRequest recordRequest,
+                             RedirectAttributes redirectAttributes) {
+        // 需要创建一个从ItemRequest对象到Item对象的转换方法
+
+        // 更新物品
+        recordService.updateRecord(recordID, recordRequest);
+        System.out.println(recordID);
+
+        redirectAttributes.addFlashAttribute("success", true);
+//        return "test";
+        return "redirect:/records";
     }
 }

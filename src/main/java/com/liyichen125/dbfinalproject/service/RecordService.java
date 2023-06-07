@@ -9,4 +9,7 @@ import java.util.List;
 public interface RecordService {
     Integer createRecord(RecordRequest recordRequest);
     List<Record> getRecords(RecordSituation situation , String search);
+    Record getRecordById(Integer recordId);
+    RecordRequest covertToRecordRequest(Record record);
+    void  updateRecord(Integer recordId, RecordRequest recordRequest);
 }

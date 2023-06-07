@@ -4,6 +4,7 @@ import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.constant.RecordSituation;
 import com.liyichen125.dbfinalproject.dao.RecordDao;
+import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.dto.RecordRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.model.Record;
@@ -15,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -54,10 +56,8 @@ public class RecordDaoImpl implements RecordDao {
     @Override
     public List<Record> getRecords(RecordSituation situation, String search) {
         String sql = "SELECT r.record_id,i.item_id,r.situation,r.contact_person_id,r.borrow_date,return_date,r.violation_type,u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
-
+        //String sql = "SELECT * FROM dormy.record WHERE 1=1";
         Map<String, Object> map = new HashMap<>();
-
-
         if(situation != null){
             sql = sql + " AND situation = :situation";
             map.put("situation",situation.name());
@@ -73,4 +73,41 @@ public class RecordDaoImpl implements RecordDao {
         List<Record> recordList = namedParameterJdbcTemplate.query(sql,map,new RecordRowMapper());
         return recordList;
     }
+    @Override
+    public Record getRecordById(Integer recordId){
+        String sql = "SELECT * FROM dormy.record AS r WHERE r.record_id = :record_id";
+        Map<String, Object> map = new HashMap<>();
+        if(recordId != null){
+            map.put("record_id",recordId);
+        }
+        List<Record> recordList = namedParameterJdbcTemplate.query(sql, map, new RecordRowMapper());
+
+        if(recordList.size()>0){
+            //這邊要修改 目前只會返回第一個項目
+            return recordList.get(0);
+        }else{
+            return null ;
+        }
+    }
+    @Override
+    public  void updateRecord(Integer recordId,RecordRequest recordRequest){
+
+            String sql = "UPDATE record SET situation = :situation," +
+                    "item_id = :item_id," +
+                    "user_id = :user_id, contact_person_id = :contact_person_id, violation_type = :violation_type" +
+                    " WHERE record_id = :record_id";
+
+            Map<String,Object> map = new HashMap<>();
+            map.put("record_id",recordId);
+            map.put("situation",recordRequest.getSituation().toString());
+            map.put("user_id",recordRequest.getUser_id());
+            map.put("contact_person_id",recordRequest.getContact_person_id());
+            map.put("violation_type",recordRequest.getViolation_type());
+            map.put("item_id",recordRequest.getItem_id());
+            // 紀錄當下日期
+//        Date now = new Date();
+//        map.put("purchase_date",now);
+            namedParameterJdbcTemplate.update(sql, map);
+
+        }
 }
