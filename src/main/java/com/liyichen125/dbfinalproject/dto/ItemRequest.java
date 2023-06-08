@@ -1,9 +1,10 @@
 package com.liyichen125.dbfinalproject.dto;
-
+import javax.validation.constraints.NotNull;
 import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.model.Item;
-import com.sun.istack.internal.NotNull;
+//import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -23,6 +24,8 @@ public class ItemRequest {
 
     @NotNull
     private String item_name;
+    @NotNull
+    private Integer item_id;
 
     public Integer getItem_id() {
         return item_id;
@@ -79,5 +82,9 @@ public class ItemRequest {
 
     public void setCompensation_price(Integer compensation_price) {
         this.compensation_price = compensation_price;
+    }
+
+    public void setItem_id(Integer itemId) {
+        this.item_id = itemId;
     }
 }

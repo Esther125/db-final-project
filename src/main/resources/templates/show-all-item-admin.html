@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Item List</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script th:inline="javascript">
+        /*<![CDATA[*/
+        var success = /*[[${success}]]*/ false;
+        $(document).ready(function() {
+            if (success) {
+                alert("執行成功！");
+            }
+        });
+        /*]]>*/
+    </script>
+</head>
+<body>
+<h2>物品管理</h2>
+<h3>現有物品：</h3>
+<table>
+  <thead>
+  <tr>
+    <th>物品ID</th>
+    <th>物品名稱</th>
+    <th>物品類型</th>
+    <th>物品狀態</th>
+    <th>可借用天数</th>
+    <th>購買日期</th>
+    <th>使用年限</th>
+    <th>價格</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="item : ${items}">
+    <td th:text="${item.item_id}"></td>
+    <td th:text="${item.item_name}"></td>
+    <td th:text="${item.type}"></td>
+    <td th:text="${item.status}"></td>
+    <td th:text="${item.borrow_day}"></td>
+    <td th:text="${#dates.format(item.purchase_date, 'yyyy-MM-dd')}"></td>
+    <td th:text="${item.tenure}"></td>
+    <td th:text="${item.compensation_price}"></td>
+    <td><a th:href="@{/items/edit/{id}(id=${item.item_id})}">編輯</a></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Record</title>
+</head>
+<body>
+<h1>Add Record</h1>
+
+<form action="/records" method="GET">
+  <label for="search">Search:</label>
+  <input type="text" id="search" name="search"><br><br>
+
+  <label for="situation">Record Situation:</label>
+  <select id="situation" name="situation">
+    <option value="">All</option>
+    <option th:each="situation : ${recordSituation}" th:value="${situation}" th:text="${situation}"></option>
+  </select><br><br>
+
+  <input type="submit" value="Submit">
+</form>
+
+<h2>Records:</h2>
+<ul>
+  <table>
+    <thead>
+    <tr>
+      <th>recordID</th>
+      <th>user_id</th>
+      <th>situation</th>
+      <th>item_id</th>
+      <th>contact_person_id</th>
+      <th>borrow_date</th>
+      <th>violation_type</th>
+      <th>return_date</th>
+      <th>Actions</th> <!-- 添加一个用于操作的列 -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="record : ${records}">
+      <td th:text="${record.record_id}"></td>
+      <td th:text="${record.user_id}"></td>
+      <td th:text="${record.situation}"></td>
+      <td th:text="${record.item_id}"></td>
+      <td th:text="${record.contact_person_id}"></td>
+      <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
+      <td th:text="${record.violation_type}"></td>
+      <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
+      <td>
+        <a th:href="@{/records/edit/{id}(id=${record.record_id})}">Edit</a> <!-- 添加编辑按钮并设置链接到第二个页面 -->
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</ul>
+<button onclick="window.location.href='/records/add-record'">新增</button>
+
+
+</body>
+</html>
