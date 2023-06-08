@@ -30,6 +30,29 @@ public class UserPageController {
     }
 
     //登入成功的歡迎頁面
+
+    @GetMapping("/users/login-success")
+    public String showHomepage(HttpSession session, Model model) {
+        Integer userId = (Integer) session.getAttribute("user_id");
+        if (userId == null) {
+            return "redirect:/users/login"; // 如果用户未登录，重定向到登录页面
+        }
+
+        User user = userService.getUserById(userId);
+
+        model.addAttribute("user", user);
+
+        if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
+            return "student-homepage";
+        } else if (user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
+            return "admin-homepage";
+        } else {
+            return "redirect:/users/login"; // 如果角色无效，重定向回登录页面
+        }
+    }
+
+
+
     @PostMapping("/users/login-success")
     public String loginSuccess(HttpSession session,
                                @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,
@@ -92,13 +115,6 @@ public class UserPageController {
         return "user-profile";
     }
 
-//    @GetMapping("/users/self-profile")
-//    public String showSelfProfile(@PathVariable("user_id") Integer user_id, Model model) {
-//        User user = userService.getUserById(user_id);
-//        // 需要创建一个从Item对象到ItemRequest对象的转换方法
-//        model.addAttribute("user", user);
-//        return "user-profile";
-//    }
 
     //查看個人頁面 - 學生
     @GetMapping("/users/self-profile")

@@ -1,6 +1,5 @@
 package com.liyichen125.dbfinalproject.controller;
 
-import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.dto.MessageRequest;
 import com.liyichen125.dbfinalproject.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class AddMessagePageController {
+public class MessagePageController {
     @Autowired
     private MessageService messageService;
 

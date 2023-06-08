@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -110,11 +111,30 @@ public class ItemPageController {
 
     ){
 //        List<Item> itemList = itemService.getItems(type,status,search);
+
+        // Add all ItemStatus values to the model
+        model.addAttribute("itemStatuses", Arrays.asList(ItemStatus.values()));
+
+        // If ItemType also has multiple values, you can do the same:
+        model.addAttribute("itemTypes", Arrays.asList(ItemType.values()));
         List<Item> items = itemService.getItems(type,status,search);
         model.addAttribute("items", items);
         return "show-all-items-student";
     }
 
+    @DeleteMapping("/items/delete/{id}-success")
+    public String deleteItem(@PathVariable Integer id) {
+        itemService.deleteItemById(id);
+        return "redirect:/items";
+    }
 
+    @GetMapping("/items/delete/{id}")
+    public String updateItem(@PathVariable("id") Integer itemId,Model model) {
+//        System.out.println(itemId);
+//        itemService.deleteItemById(itemId);
+        Item item = itemService.getItemById(itemId);
+        model.addAttribute("item", item);
+        return "delete-item";
+    }
 
 }
