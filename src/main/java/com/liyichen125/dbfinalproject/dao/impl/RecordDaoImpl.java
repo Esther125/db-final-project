@@ -66,7 +66,7 @@ public class RecordDaoImpl implements RecordDao {
         //模糊查詢(關鍵字搜尋)
         if(search != null){
             //百分比(%)不可以直接寫在SQL裡面，要寫在map的值裡面(jdbc template規定)
-            sql = sql + " AND i.item_name LIKE :search";
+            sql = sql + " AND r.contact_person_id LIKE :search";
             map.put("search","%" + search + "%");
         }
 

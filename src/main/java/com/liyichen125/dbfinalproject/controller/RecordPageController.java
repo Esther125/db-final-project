@@ -15,12 +15,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class RecordPageController {
     @Autowired
     private RecordService recordService;
+    @Autowired
+    private ItemService itemService;
+    @ModelAttribute("recordSituation")
+    public RecordSituation[] getRecordSituation() {
+        return RecordSituation.values();
+    }
+
 
     @GetMapping("/records/add-record")
     public String showAddRecordForm(Model model) {
@@ -32,22 +40,24 @@ public class RecordPageController {
     @GetMapping("/records")
     public String getAllRecords(Model model,
                               //利用條件篩選物品
-
                               @RequestParam(required = false) RecordSituation situation,
                               //利用關鍵字查詢物品
                               @RequestParam(required = false) String search
-
     ){
-
+        if(search == ""){
+            search = null;
+        }
         List<Record> records = recordService.getRecords(situation,search);
         model.addAttribute("records", records);
+        List<Item> items = new ArrayList<Item>();
+        for (Record record : records){
+            items.add(itemService.getItemById(record.getItem_id())) ;
+        }
+        model.addAttribute("items", items);
         return "show-all-records";
     }
 
-    @ModelAttribute("recordSituation")
-    public RecordSituation[] getRecordSituation() {
-        return RecordSituation.values();
-    }
+
 
     @PostMapping("/records/add-record-success")
     public String showSuccessPage(Model model, @ModelAttribute("RecordRequest")RecordRequest recordRequest, @RequestParam(required = false) String search,
