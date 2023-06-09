@@ -2,16 +2,91 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Message</title>
+    <title>Message Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .message-board-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .message-board {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .message-board h3 {
+            margin-bottom: 20px;
+        }
+        .message-board .message-time {
+            color: lightgray;
+            font-size: 0.8em;
+        }
+        .message-board p {
+            margin-bottom: 10px;
+        }
+        .delete-button {
+            color: gray;
+            float: right;
+            cursor: pointer;
+        }
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        form input[type="text"], form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        form input[type="submit"] {
+            padding: 5px 20px;
+        }
+    </style>
 </head>
 <body>
 
-<h2>新增留言</h2>
+<h2>Message Board</h2>
+
+<div class="message-board-container">
+    <div class="message-board" th:each="message : ${messages}">
+        <h3>
+            <span th:text="${message.user_id}"></span>&nbsp;&nbsp;
+            <span class="message-time" th:text="${message.m_time}"></span>
+            <span class="delete-button" th:attr="data-id=${message.message_id}" onclick="deleteMessage(this.getAttribute('data-id'))">Delete</span>
+        </h3>
+        <p th:text="${message.content}"></p>
+    </div>
+</div>
+
+<h2>Add Message</h2>
 <form action="#" th:action="@{/add-message-success}" th:object="${MessageRequest}" method="post">
     <input type="hidden" name="success" value="true" />
-    使用者ID：<input type="text" th:field="*{user_id}"/><BR><BR>
-    <textarea rows="4" cols="50" th:field="*{content}" placeholder="請在此輸入留言"></textarea><BR>
-    <input type="submit"/>
+    User ID: <input type="text" th:field="*{user_id}"/><BR><BR>
+    <textarea rows="4" cols="50" th:field="*{content}" placeholder="Please enter your message here"></textarea><BR>
+    <input type="submit" value="Submit"/>
 </form>
+
+<script>
+    function deleteMessage(messageId) {
+        fetch('/delete-message/' + messageId, {
+            method: 'DELETE',
+        }).then(response => {
+            if(response.ok) {
+                location.reload();
+            } else {
+                alert('Failed to delete message');
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
+
+
+
