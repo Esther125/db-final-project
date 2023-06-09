@@ -117,13 +117,16 @@ public class UserPageController {
 
 
     //查看個人頁面 - 學生
-    @GetMapping("/users/self-profile")
+    @GetMapping("/users/profile/{user_id}")
     public String selfProfile(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("user_id");
         User user = userService.getUserById(userId);
         model.addAttribute("user", user);
         return "user-profile";
     }
+
+
+
 
 
 
