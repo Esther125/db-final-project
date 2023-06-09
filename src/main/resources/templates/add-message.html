@@ -71,6 +71,7 @@
     <input type="submit" value="Submit"/>
 </form>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
 document.getElementById('message-form').addEventListener('submit', function(event) {
@@ -78,7 +79,22 @@ document.getElementById('message-form').addEventListener('submit', function(even
     alert('Message added successfully');
     this.submit();
 });
+
+function deleteMessage(id) {
+    $.ajax({
+        url: '/delete-message/' + id,
+        type: 'DELETE',
+        success: function(response) {
+            alert(response);
+            location.reload(); // If successful, reload the page
+        },
+        error: function(response) {
+            alert('Error: ' + response.responseText);
+        }
+    });
+}
 </script>
+
 
 
 
