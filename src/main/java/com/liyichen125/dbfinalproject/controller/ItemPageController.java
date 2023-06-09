@@ -4,13 +4,16 @@ import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
+import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class ItemPageController {
     }
 
     //新增物品成功後跳轉到物品管理頁面 - 管理員
+
     @PostMapping("/items/add-item-success")
     public String showSuccessPage(Model model,
                                   @ModelAttribute("ItemRequest") ItemRequest itemRequest,
@@ -135,6 +139,24 @@ public class ItemPageController {
         Item item = itemService.getItemById(itemId);
         model.addAttribute("item", item);
         return "delete-item";
+    }
+    @GetMapping("/items/borrow/{id}")
+    public  String borrowItem(@PathVariable("id")Integer itemId, Model model, HttpSession session){
+        Item item = itemService.getItemById(itemId);
+        User user = (User) session.getAttribute("user");
+
+        itemService.borrowItem(item,user);
+        return "redirect:/items2";
+
+    }
+    @GetMapping("/items/reserve/{id}")
+    public  String reserveItem(@PathVariable("id")Integer itemId, Model model, HttpSession session){
+        Item item = itemService.getItemById(itemId);
+        User user = (User) session.getAttribute("user");
+
+        itemService.reserveItem(item,user);
+        return "redirect:/items2";
+
     }
 
 }

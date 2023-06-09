@@ -3,7 +3,15 @@ package com.liyichen125.dbfinalproject.constant;
 public enum RecordSituation {
     BORROW("BORROW"),
     RETURN("RETURN"),
+    UN_RESERVE("UN_RESERVE"),
+    UN_BORROW("UN_BORROW"),
     RESERVE("RESERVE");
+
+
+
+
+
+
 
     private final String displayName;
 

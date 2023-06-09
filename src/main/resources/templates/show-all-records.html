@@ -3,6 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>Add Record</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // 定时器，每五秒钟刷新一次表格数据
+      setInterval(function() {
+        refreshTable();
+      }, 5000);
+
+      function refreshTable() {
+        $.ajax({
+          url: '/records',  // 替换为获取表格数据的后端 URL
+          type: 'GET',
+          success: function(data) {
+            // 从返回的数据中提取表格内容
+            var tableContent = $(data).find('#recordTable').html();
+            // 更新表格内容
+            $('#recordTable').html(tableContent);
+          },
+          error: function() {
+            console.log('Failed to refresh table.');
+          }
+        });
+      }
+    });
+  </script>
+
 </head>
 <body>
 <h1>Add Record</h1>
@@ -22,7 +48,7 @@
 
 <h2>Records:</h2>
 <ul>
-  <table>
+  <table id = "recordTable">
     <thead>
     <tr>
       <th>recordID</th>

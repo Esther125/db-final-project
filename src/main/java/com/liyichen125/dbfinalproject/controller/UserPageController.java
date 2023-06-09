@@ -40,11 +40,11 @@ public class UserPageController {
 
         User user = userService.getUserById(userId);
 
-        model.addAttribute("user", user);
+        model.addAttribute("user",  user);
 
-        if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
+        if ( user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
             return "student-homepage";
-        } else if (user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
+        } else if ( user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
             return "admin-homepage";
         } else {
             return "redirect:/users/login"; // 如果角色无效，重定向回登录页面
@@ -63,6 +63,8 @@ public class UserPageController {
         session.setAttribute("user_id", user.getUser_id());
 
         model.addAttribute("user", user);
+        session.setAttribute("user", user);
+
 
         if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
             return "student-homepage";

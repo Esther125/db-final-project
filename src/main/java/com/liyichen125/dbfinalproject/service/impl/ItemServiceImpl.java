@@ -3,8 +3,10 @@ package com.liyichen125.dbfinalproject.service.impl;
 import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dao.ItemDao;
+import com.liyichen125.dbfinalproject.dao.RecordDao;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
+import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemDao itemDao;
+    @Autowired
+    private RecordDao recordDao;
 
 
     @Override
@@ -40,6 +44,14 @@ public class ItemServiceImpl implements ItemService {
         itemDao.updateItem(item_id, item);
         System.out.println(item.getItem_name());
         System.out.println(item_id);
+    }
+    @Override
+    public void borrowItem(Item item, User user){
+        recordDao.createBorrowRequest(item,user);
+    }
+    @Override
+    public void reserveItem(Item item, User user){
+        recordDao.createReserveRequest(item,user);
     }
 
 
