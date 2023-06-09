@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <!-- basic -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +53,7 @@
               </li>
             
               <li class="nav-item active">
-                <a class="nav-link" href="/items2">管理物品</a>
+                <a class="nav-link" href="/items">管理物品</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="/add-message">留言板管理</a>
@@ -116,35 +116,14 @@
             <td th:text="${item.compensation_price}"></td>
             <td>
               <a th:href="@{/items/edit/{id}(id=${item.item_id})}">編輯</a>
-              <a th:href="@{/items/delete/{id}(id=${item.item_id})}">刪除</a>
+              <a th:href="@{/items/delete/{item_id}(id=${item.item_id})}">刪除</a>
             </td>
         </tr>
         </tbody>
     </table>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script th:inline="javascript">
-            $(document).on("click",'.remove',function(){
-      console.log($(this).parent().parent().children('.account').text());
-      $.ajax({
-        type: 'DELETE',
-        url:apiurl + '/' + $(this).parent().parent().children('.account').text(),
-        success: function(){
-        $(this).parent().parent().remove();
-        window.location.reload();//刪除後重新整理視窗
-        }
-      });
-    });
 
-      /*<![CDATA[*/
-      var success = /*[[${success}]]*/ false;
-    $(document).ready(function() {
-        if (success) {
-            alert("執行成功！");
-        }
-    });
-    /*]]>*/
 
-    </script>
 </body>
 </html>

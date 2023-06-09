@@ -71,7 +71,7 @@
     <div class="header_section">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <h2 class="dance_text">政大物品借還系統<br>管理員頁面</h2>
-    
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -80,22 +80,22 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/users/login-success">首頁</a>
                     </li>
-    
+
                     <li class="nav-item active">
                         <a class="nav-link" href="/items">管理物品</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="reply2.html">留言板管理</a>
+                        <a class="nav-link" href="/add-message">留言板管理</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/records">借還物品紀錄</a>
                     </li>
-    
+
                     <li class="nav-item active">
                         <a class="nav-link" href="/users/management">會員管理</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/users/login">登出</a>
+                        <a class="nav-link" href="/users/logout">登出</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -128,7 +128,7 @@
         <td th:text="${user.phoneNumber}"></td>
         <td th:text="${user.roomNumber}"></td>
         <td th:text="${user.departmentGrade}"></td>
-        <td><a th:href="@{/users/profile/{id}(id=${user.user_id})}">查看</a></td>
+        <td><a th:href="@{/users/management/{id}(id=${user.user_id})}">查看</a></td>
     </tr>
     </tbody>
 </table>

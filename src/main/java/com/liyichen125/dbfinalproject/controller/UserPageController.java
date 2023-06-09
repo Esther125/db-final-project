@@ -87,7 +87,7 @@ public class UserPageController {
         model.addAttribute("UserRegisterRequest", new UserRegisterRequest());
         Integer user_id = userService.register(userRegisterRequest);
         model.addAttribute("user_id", user_id);
-        return "register-success";
+        return "redirect:/users/login";
     }
 
     //會員管理頁面 - 管理員
@@ -107,12 +107,12 @@ public class UserPageController {
     }
 
     //查看學生個人頁面 - 管理員
-    @GetMapping("users/profile/{user_id}")
+    @GetMapping("/users/management/{user_id}")
     public String showProfile(@PathVariable("user_id") Integer user_id, Model model) {
         User user = userService.getUserById(user_id);
         // 需要创建一个从Item对象到ItemRequest对象的转换方法
         model.addAttribute("user", user);
-        return "user-profile";
+        return "admin-user-profile";
     }
 
 

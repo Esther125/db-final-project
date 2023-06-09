@@ -673,5 +673,13 @@ label.valid {
         </div>
     </section>
 </div>
+
+<script>
+document.getElementById('register-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Register Success');
+    this.submit();
+});
+</script>
 </body>
 </html>

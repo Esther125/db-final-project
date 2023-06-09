@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <!-- basic -->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Shortcodes</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="/css/style copy.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="/images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/css/haha.css">
+</head>
+<body>
+    <div class="header_section">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h2 class="dance_text">政大物品借還系統<br>管理員頁面</h2>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/login-success">首頁</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/items">管理物品</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/add-message">留言板管理</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="record2.html">借還物品紀錄</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/management">會員管理</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/login">登出</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="search_icon"><a href="#"><img src="/images/search-icon.png"></a></div>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+<h2>學生個人資訊頁面</h2>
+<table>
+    <tr>
+        <td>學生ID:</td>
+        <td th:text="${user.user_id}"></td>
+    </tr>
+    <tr>
+        <td>姓名:</td>
+        <td th:text="${user.name}"></td>
+    </tr>
+    <tr>
+        <td>角色:</td>
+        <td th:text="${user.role}"></td>
+    </tr>
+    <tr>
+        <td>點數:</td>
+        <td th:text="${user.point}"></td>
+    </tr>
+    <tr>
+        <td>電話號碼:</td>
+        <td th:text="${user.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <td>房間號碼:</td>
+        <td th:text="${user.roomNumber}"></td>
+    </tr>
+    <tr>
+        <td>系級:</td>
+        <td th:text="${user.departmentGrade}"></td>
+    </tr>
+</table>
+
+<h2>學生借用紀錄</h2>
+<table id="borrowed_items_placeholder">
+    <!-- 在這裡添加學生的借用紀錄 -->
+    <!-- 这里需要自定义表格头部和行数据，例如：
+    <tr>
+        <th>物品ID</th>
+        <th>物品名稱</th>
+        <th>借出日期</th>
+        <th>归还日期</th>
+    </tr>
+    <tr th:each="record : ${user.borrow_records}">
+        <td th:text="${record.item_id}"></td>
+        <td th:text="${record.item_name}"></td>
+        <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
+    </tr>
+    -->
+</table>
+
+</body>
+</html>
+
+
