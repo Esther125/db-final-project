@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>confirm Record</title>
+</head>
+<body>
+
+<h2>confirm-管理員</h2>
+<form action="/records/confirm/{id}-success" th:action="@{/records/edit/{id}-success(id=*{record_id})}" th:object="${RecordRequest}" method="post">
+  <input type="hidden" name="success" value="true" />
+  <input type="hidden" th:field="*{record_id}" />
+  RecordID： <input type="text" th:field="*{record_id}" readonly/><br><!-- 添加记录ID的隐藏字段 -->
+  用户ID： <input type="text" th:field="*{user_id}" readonly/><br>
+  联系人ID： <input type="text" th:field="*{contact_person_id}" readonly/><br>
+  物品ID： <input type="text" th:field="*{item_id}" readonly/><br>
+  记录情况： <select th:field="*{situation}">
+  <option th:each="situation : ${recordSituation}" th:value="${situation}" th:text="${situation.displayName}"></option>
+</select><br>
+
+  违规类型： <input type="text" th:field="*{violation_type}"/><br>
+  <input type="submit" value="Submit"/>
+</form>
+<button onclick="window.location.href='/records'">返回</button>
+</body>
+</html>

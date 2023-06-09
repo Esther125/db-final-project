@@ -7,6 +7,7 @@ import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.dto.RecordRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.model.Record;
+import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.ItemService;
 import com.liyichen125.dbfinalproject.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,20 +76,46 @@ public class RecordPageController {
         RecordRequest recordRequest = recordService.covertToRecordRequest(record);
         recordRequest.setRecord_id(recordId);
         model.addAttribute("RecordRequest", recordRequest);
-        return "edit-record";
+        return "confirm-record";
     }
+    @GetMapping("/records/confirm/{id}")
+    public String showConfirmForm(@PathVariable("id") Integer recordId, Model model, HttpSession session) {
+        Record record = recordService.getRecordById(recordId);
+        // 需要创建一个从Item对象到ItemRequest对象的转换方法
+        User user = (User) session.getAttribute("user");
+        record.setContact_person_id(user.getUser_id());
+        RecordRequest recordRequest = recordService.covertToRecordRequest(record);
+        recordRequest.setRecord_id(recordId);
+        model.addAttribute("RecordRequest", recordRequest);
+
+        return "confirm-record";
+    }
+
     @PostMapping("/records/edit/{id}-success")
     public String updateRecord(@PathVariable("id") Integer recordID,
                              @ModelAttribute("RecordRequest") RecordRequest recordRequest,
                              RedirectAttributes redirectAttributes) {
         // 需要创建一个从ItemRequest对象到Item对象的转换方法
-
         // 更新物品
         recordService.updateRecord(recordID, recordRequest);
+        Record record = recordService.getRecordById(recordID);
+        Item item = itemService.getItemById(record.getItem_id());
+        if(record.getSituation() == RecordSituation.BORROW){
+            item.setStatus(ItemStatus.UNAVAILABLE);
+        }else  if(record.getSituation() == RecordSituation.RESERVE){
+            item.setStatus(ItemStatus.RESERVED);
+        }else {
+            item.setStatus(ItemStatus.AVAILABLE);
+        }
+        ItemRequest itemRequest = itemService.convertToItemRequest(item);
+        itemService.updateItem(record.getItem_id(),itemRequest);
+
+
         System.out.println(recordID);
 
         redirectAttributes.addFlashAttribute("success", true);
 //        return "test";
         return "redirect:/records";
     }
+
 }
