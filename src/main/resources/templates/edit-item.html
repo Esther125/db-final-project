@@ -1,12 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- site metas -->
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- bootstrap css -->
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<!-- style css -->
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<!-- Responsive-->
+<link rel="stylesheet" href="/css/responsive.css">
+<!-- fevicon -->
+<link rel="icon" href="/images/fevicon.png" type="/image/gif" />
+<!-- Scrollbar Custom CSS -->
+<link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
+<!-- Tweaks for older IEs-->
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/table/style1.css">
+<!-- owl stylesheets -->
 <head>
     <meta charset="UTF-8">
     <title>Edit Item</title>
+    <link rel="stylesheet" type="text/css" href="/css/yeah.css">
 </head>
 <body>
+    <div class="header_section">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h2 class="dance_text">政大物品借還系統<br>管理員頁面</h2>
+    
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/login-success">首頁</a>
+                    </li>
+    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/items">管理物品</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="reply2.html">留言板管理</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/records">借還物品紀錄</a>
+                    </li>
+    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/management">會員管理</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/login">登出</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="search_icon"><a href="#"><img src="/images/search-icon.png"></a></div>
+                </form>
+            </div>
+        </nav>
+    </div>
 
-<h2>修改物品-管理員</h2>
+<h2 class="word">修改物品-管理員</h2>
+<div class="form-container">
 <form action="#" th:action="@{/items/edit/{id}-success(id=*{item_id})}" th:object="${ItemRequest}" method="post">
     <input type="hidden" name="success" value="true" />
     <input type="hidden" th:field="*{item_id}" />  <!-- 添加物品ID的隐藏字段 -->
@@ -22,5 +91,6 @@
     價格： <input type="text" th:field="*{compensation_price}"/><BR>
     <input type="submit"/>
 </form>
+</div>
 </body>
 </html>

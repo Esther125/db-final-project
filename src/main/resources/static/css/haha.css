@@ -7,6 +7,9 @@ body {
 h1 {
     text-align: center;
 }
+.word {
+    text-align: center;
+}
 
 #search-bar {
     margin-bottom: 10px;
@@ -27,7 +30,7 @@ h1 {
     cursor: pointer;
   }
 
-#add-btn, #back-btn {
+#add-btn{
     width: 120px;
     padding: 10px;
     border-radius: 5px;
@@ -35,19 +38,36 @@ h1 {
     color: #fff;
     border: none;
     cursor: pointer;
-    margin-left: 10px;
-    margin-right: 10px;
+    
 }
 
-#add-btn:hover, #back-btn:hover {
+#add-btn:hover {
     background-color: #5e6081;
 }
 
-.button-group {
+.group {
+display: flex;
+align-items: center;
+}
+.help{
+color: blue;
+}
+.email-container{
+    text-align: center;
+}
+.items-container {
+flex: 1;
+}
+
+.button-container {
+margin-left: 20px; /* 调整按钮与物品容器之间的间距 */
+margin-bottom: 5px;
+}
+/*.button-group {
     justify-content: center;
     display: flex;
     margin-bottom: 20px;
-}
+}*/
 
 #modal {
     display: none;
@@ -96,6 +116,14 @@ form select {
 }
 
 form input[type="submit"] {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#sendEmail{
     margin-top: 10px;
     padding: 5px 10px;
     background-color: #4CAF50;

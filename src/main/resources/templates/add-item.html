@@ -39,7 +39,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Item</title>
-    <link rel="stylesheet" type="text/css" href="/css/haha.css">
+    <link rel="stylesheet" type="text/css" href="/css/yeah.css">
 </head>
 <body>
 <!-- header section start -->
@@ -53,23 +53,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/users/login-success">HOME</a>
+                    <a class="nav-link" href="/users/login-success">首頁</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/items">管理物品</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="reply2.html">留言板管理</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="record2.html">借還物品紀錄</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/records">借還物品紀錄</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/users/management">會員管理</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/users/login">登出</a>
                 </li>
             </ul>
@@ -81,7 +81,8 @@
 </div>
 <!-- header section end -->
 
-<h2>新增物品-管理員</h2>
+<h2 class="word">新增物品-管理員</h2>
+<div class="form-container">
 <form action="#" th:action="@{/items/add-item-success}" th:object="${ItemRequest}" method="post">
     <input type="hidden" name="success" value="true" />
     物品名稱： <input type="text" th:field="*{item_name}"/><BR>
@@ -97,5 +98,6 @@
     價格： <input type="text" th:field="*{compensation_price}"/><BR>
     <input type="submit" value="提交"/>
 </form>
+</div>
 </body>
 </html>

@@ -64,26 +64,23 @@
 </div>
 
 <h2>Add Message</h2>
-<form action="#" th:action="@{/add-message-success}" th:object="${MessageRequest}" method="post">
+<form id="message-form" action="#" th:action="@{/add-message-success}" th:object="${MessageRequest}" method="post">
     <input type="hidden" name="success" value="true" />
     User ID: <input type="text" th:field="*{user_id}"/><BR><BR>
     <textarea rows="4" cols="50" th:field="*{content}" placeholder="Please enter your message here"></textarea><BR>
     <input type="submit" value="Submit"/>
 </form>
 
+
 <script>
-    function deleteMessage(messageId) {
-        fetch('/delete-message/' + messageId, {
-            method: 'DELETE',
-        }).then(response => {
-            if(response.ok) {
-                location.reload();
-            } else {
-                alert('Failed to delete message');
-            }
-        });
-    }
+document.getElementById('message-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Message added successfully');
+    this.submit();
+});
 </script>
+
+
 
 </body>
 </html>
