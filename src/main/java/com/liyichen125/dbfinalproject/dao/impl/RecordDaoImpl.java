@@ -60,6 +60,15 @@ public class RecordDaoImpl implements RecordDao {
         return record_id;
     }
     @Override
+    public  List<Record> getRecordsByUserId(Integer userId){
+        String sql = "SELECT r.record_id,i.item_id,r.situation,r.contact_person_id,r.borrow_date,return_date,r.violation_type,u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
+        Map<String, Object> map = new HashMap<>();
+        sql = sql + " AND r.user_id = :user_id";
+        map.put("user_id",userId);
+        List<Record> recordList = namedParameterJdbcTemplate.query(sql,map,new RecordRowMapper());
+        return recordList;
+    }
+    @Override
     public List<Record> getRecords(RecordSituation situation, String search) {
         String sql = "SELECT r.record_id,i.item_id,r.situation,r.contact_person_id,r.borrow_date,return_date,r.violation_type,u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
         //String sql = "SELECT * FROM dormy.record WHERE 1=1";
@@ -79,6 +88,7 @@ public class RecordDaoImpl implements RecordDao {
         List<Record> recordList = namedParameterJdbcTemplate.query(sql,map,new RecordRowMapper());
         return recordList;
     }
+
     @Override
     public Record getRecordById(Integer recordId){
         String sql = "SELECT * FROM dormy.record AS r WHERE r.record_id = :record_id";

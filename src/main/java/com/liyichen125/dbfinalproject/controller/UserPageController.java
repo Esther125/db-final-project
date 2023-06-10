@@ -6,7 +6,10 @@ import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.dto.UserLoginRequest;
 import com.liyichen125.dbfinalproject.dto.UserRegisterRequest;
 import com.liyichen125.dbfinalproject.model.Item;
+import com.liyichen125.dbfinalproject.model.Record;
 import com.liyichen125.dbfinalproject.model.User;
+import com.liyichen125.dbfinalproject.service.ItemService;
+import com.liyichen125.dbfinalproject.service.RecordService;
 import com.liyichen125.dbfinalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +18,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class UserPageController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RecordService recordService;
+    @Autowired
+    private ItemService itemService;
 
     //使用者登入頁面
     @GetMapping("/users/login")
@@ -40,7 +48,7 @@ public class UserPageController {
 
         User user = userService.getUserById(userId);
 
-        model.addAttribute("user",  user);
+        model.addAttribute("user", user);
 
         if ( user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
             return "student-homepage";
@@ -113,20 +121,34 @@ public class UserPageController {
     public String showProfile(@PathVariable("user_id") Integer user_id, Model model) {
         User user = userService.getUserById(user_id);
         // 需要创建一个从Item对象到ItemRequest对象的转换方法
+        List<Record> records = recordService.getRecordsByUserId(user.getUser_id());
+        for (Record record : records) {
+            Item item = itemService.getItemById(record.getItem_id());
+            record.setItem(item);
+        }
+
+        model.addAttribute("records",records);
         model.addAttribute("user", user);
         return "user-profile";
     }
+    @GetMapping("users/selfProfile/{user_id}")
+    public String showSelfProfile(@PathVariable("user_id") Integer user_id, Model model) {
+        User user = userService.getUserById(user_id);
+        // 需要创建一个从Item对象到ItemRequest对象的转换方法
+        List<Record> records = recordService.getRecordsByUserId(user.getUser_id());
+        for (Record record : records) {
+            Item item = itemService.getItemById(record.getItem_id());
+            record.setItem(item);
+        }
+
+        model.addAttribute("records",records);
+        model.addAttribute("user", user);
+        return "user-profile";
+    }
+
 
 
     //查看個人頁面 - 學生
-    @GetMapping("/users/self-profile")
-    public String selfProfile(HttpSession session, Model model) {
-        Integer userId = (Integer) session.getAttribute("user_id");
-        User user = userService.getUserById(userId);
-        model.addAttribute("user", user);
-        return "user-profile";
-    }
-
 
 
 
