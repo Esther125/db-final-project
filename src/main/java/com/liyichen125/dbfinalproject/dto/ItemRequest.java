@@ -25,6 +25,7 @@ public class ItemRequest {
     @NotNull
     private String item_name;
 
+
     public Integer getItem_id() {
         return item_id;
     }
@@ -79,7 +80,5 @@ public class ItemRequest {
         this.compensation_price = compensation_price;
     }
 
-    public void setItem_id(Integer itemId) {
-        this.item_id = itemId;
-    }
+
 }

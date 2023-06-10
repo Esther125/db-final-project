@@ -37,8 +37,8 @@
 <body>
     <div class="header_section">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <h2 class="dance_text">政大物品借還系統<br>學生頁面</h2>
-    
+            <h2 class="dance_text">政大物品借還系統<br>管理員頁面</h2>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,22 +47,26 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/users/login-success">首頁</a>
                     </li>
-    
+
                     <li class="nav-item active">
-                        <a class="nav-link" href="/items2">查詢物品狀態</a>
+                        <a class="nav-link" href="/items">管理物品</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/add-message">留言板</a>
+                        <a class="nav-link" href="/add-message">留言板管理</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/users/profile/{user_id}">我的頁面</a>
+                        <a class="nav-link" href="record2.html">借還物品紀錄</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/management">會員管理</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/users/logout">登出</a>
+                        <a class="nav-link" href="/users/login">登出</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <div class="search_icon"><a href="#"><img src="\images\search-icon.png"></a></div>
+                    <div class="search_icon"><a href="#"><img src="/images/search-icon.png"></a></div>
                 </form>
             </div>
         </nav>
@@ -98,47 +102,10 @@
         <td>系級:</td>
         <td th:text="${user.departmentGrade}"></td>
     </tr>
-</table> <br><br>
+</table>
 
 <h2>學生借用紀錄</h2>
-    <ul>
-        <table id = "recordTable">
-            <thead>
-            <tr>
-                <th>recordID</th>
-                <th>user_id</th>
-                <th>situation</th>
-                <th>item_id</th>
-                <th>contact_person_id</th>
-                <th>borrow_date</th>
-                <th>violation_type</th>
-                <th>return_date</th>
-                <th>item_name</th>
-
-                <!-- 添加一个用于操作的列 -->
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="record : ${records}">
-                <td th:text="${record.record_id}"></td>
-                <td th:text="${record.user_id}"></td>
-                <td th:text="${record.situation}"></td>
-                <td th:text="${record.item_id}"></td>
-                <td th:text="${record.contact_person_id}"></td>
-                <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
-                <td th:text="${record.violation_type}"></td>
-                <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
-                <div th:if="${record.item != null}">
-                    <td th:text="${record.item.item_name}"></td>
-                </div>
-
-
-
-            </tr>
-
-            </tbody>
-        </table>
-    </ul>
+<table id="borrowed_items_placeholder">
     <!-- 在這裡添加學生的借用紀錄 -->
     <!-- 这里需要自定义表格头部和行数据，例如：
     <tr>

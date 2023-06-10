@@ -7,7 +7,12 @@ import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.web.servlet.server.Session;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -126,19 +131,24 @@ public class ItemPageController {
         return "show-all-items-student";
     }
 
-    @DeleteMapping("/items/delete/{id}-success")
-    public String deleteItem(@PathVariable Integer id) {
-        itemService.deleteItemById(id);
-        return "redirect:/items";
-    }
+//    @GetMapping("/items/delete/{id}")
+//    public String updateItem(@PathVariable("id") Integer itemId,Model model) {
+////        System.out.println(itemId);
+////        itemService.deleteItemById(itemId);
+//        Item item = itemService.getItemById(itemId);
+//        model.addAttribute("item", item);
+//        return "delete-item";
+//    }
 
-    @GetMapping("/items/delete/{id}")
-    public String updateItem(@PathVariable("id") Integer itemId,Model model) {
-//        System.out.println(itemId);
-//        itemService.deleteItemById(itemId);
-        Item item = itemService.getItemById(itemId);
-        model.addAttribute("item", item);
-        return "delete-item";
+    @DeleteMapping("/items/delete/{item_id}")
+    @ResponseBody
+    public ResponseEntity<String> deleteItem(@PathVariable Integer item_id) {
+        try {
+            itemService.deleteItemById(item_id);
+            return new ResponseEntity<>("Item deleted successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to delete item", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("/items/borrow/{id}")
     public  String borrowItem(@PathVariable("id")Integer itemId, Model model, HttpSession session){

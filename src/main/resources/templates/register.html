@@ -654,7 +654,7 @@ label.valid {
                         系級： <i
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{department_grade}"/><BR>
                         密碼： <i
-                            class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{password}"/><BR>
+                            class="zmdi zmdi-account material-icons-name"></i><input type="password" th:field="*{password}"/><BR>
 
                         <input type="submit" class="form-submit"/>
                     </form>
@@ -673,5 +673,13 @@ label.valid {
         </div>
     </section>
 </div>
+
+<script>
+document.getElementById('register-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Register Success');
+    this.submit();
+});
+</script>
 </body>
 </html>

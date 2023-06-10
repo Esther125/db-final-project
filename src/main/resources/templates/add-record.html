@@ -1,34 +1,103 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- site metas -->
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- bootstrap css -->
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<!-- style css -->
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<!-- Responsive-->
+<link rel="stylesheet" href="/css/responsive.css">
+<!-- fevicon -->
+<link rel="icon" href="/images/fevicon.png" type="/image/gif" />
+<!-- Scrollbar Custom CSS -->
+<link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
+<!-- Tweaks for older IEs-->
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/table/style1.css">
+<!-- owl stylesheets -->
 <head>
     <meta charset="UTF-8">
     <title>Add Record</title>
+    <link rel="stylesheet" type="text/css" href="/css/yeah.css">
 </head>
 <body>
-<h1>Add Record</h1>
+    <div class="header_section">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h2 class="dance_text">政大物品借還系統<br>管理員頁面</h2>
+    
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/login-success">首頁</a>
+                    </li>
+    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/items">管理物品</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="reply2.html">留言板管理</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/records">借還物品紀錄</a>
+                    </li>
+    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/management">會員管理</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users/login">登出</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="search_icon"><a href="#"><img src="/images/search-icon.png"></a></div>
+                </form>
+            </div>
+        </nav>
+    </div>
+<h1 class="word">新增紀錄-管理員</h1>
 
-
+<div class="form-container">
 <form action="#" th:action="@{/records/add-record-success}" th:object="${RecordRequest}" method="post">
-    <label for="item_id">Item ID:</label>
-    <input type="text" id="item_id" name="item_id" th:field="*{item_id}"><br><br>
-    <label for="user_id">User ID:</label>
-    <input type="text" id="user_id" name="user_id" th:field="*{user_id}"><br><br>
+    <label for="item_id"> 物品ID：</label>
+    <input type="text" id="item_id" name="item_id" th:field="*{item_id}">
+    <label for="user_id">用戶ID：</label>
+    <input type="text" id="user_id" name="user_id" th:field="*{user_id}">
 
-    <label for="contact_person_id">Contact Person ID:</label>
-    <input type="text" id="contact_person_id" name="contact_person_id" th:field="*{contact_person_id}"><br><br>
+    <label for="contact_person_id">聯絡人ID：</label>
+    <input type="text" id="contact_person_id" name="contact_person_id" th:field="*{contact_person_id}">
 
-    <label>Record Situation:</label>
+    <label> 紀錄情況：</label>
     <select th:field="*{situation}">
         <option th:each="situation : ${recordSituation}" th:value="${situation}" th:text="${situation.displayName}"></option>
 
         <!-- Add options dynamically if needed -->
-    </select><br><br>
+    </select>
 
-    <label for="violation_type">Violation Type:</label>
-    <input type="text" id="violation_type" name="violation_type" th:field="*{violation_type}"><br><br>
+    <label for="violation_type">違規類型：</label>
+    <input type="text" id="violation_type" name="violation_type" th:field="*{violation_type}">
 
     <input type="submit" value="Submit">
 </form>
-<button onclick="window.location.href='/records'">返回</button>
+</div>
+<button  id='back-btn' onclick="window.location.href='/records'">返回</button>
 </body>
 </html>
