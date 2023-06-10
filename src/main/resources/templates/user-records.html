@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+</head>
+<body>
+<h2>User Profile</h2>
+<h3>User Information</h3>
+<p>Username: <span th:text="${user.username}"></span></p>
+
+<h3>Records</h3>
+<table>
+  <thead>
+  <tr>
+    <th>Record ID</th>
+    <th>Situation</th>
+    <th>Violation Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="record : ${myRecords}">
+    <td th:text="${record.record_id}"></td>
+    <td th:text="${record.situation.displayName}"></td>
+    <td th:text="${record.violation_type}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -4,6 +4,7 @@ import com.liyichen125.dbfinalproject.constant.ItemStatus;
 import com.liyichen125.dbfinalproject.constant.ItemType;
 import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.model.Item;
+import com.liyichen125.dbfinalproject.model.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface ItemService {
     void deleteItemById(Integer item_id);
     ItemRequest convertToItemRequest(Item item);
     Item convertToItem(ItemRequest itemRequest);
+
+    void borrowItem(Item item, User user);
+    void reserveItem(Item item, User user);
 }

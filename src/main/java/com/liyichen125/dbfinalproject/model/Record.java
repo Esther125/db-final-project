@@ -13,6 +13,24 @@ public class Record {
     private Date borrow_date;
     private Date return_date;
     private String violation_type;
+    private  Item item;
+    private User user;
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getRecord_id() {
         return record_id;

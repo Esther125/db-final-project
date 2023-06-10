@@ -66,10 +66,36 @@
 </style>
 <head>
   <meta charset="UTF-8">
+
   <title>借還物品紀錄</title>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/haha.css">
-    
+  <link rel="stylesheet" type="text/css" href="/css/haha.css">
+  <script>
+    $(document).ready(function() {
+      // 定时器，每五秒钟刷新一次表格数据
+      setInterval(function() {
+        refreshTable();
+      }, 5000);
+
+      function refreshTable() {
+        $.ajax({
+          url: '/records',  // 替换为获取表格数据的后端 URL
+          type: 'GET',
+          success: function(data) {
+            // 从返回的数据中提取表格内容
+            var tableContent = $(data).find('#recordTable').html();
+            // 更新表格内容
+            $('#recordTable').html(tableContent);
+          },
+          error: function() {
+            console.log('Failed to refresh table.');
+          }
+        });
+      }
+    });
+  </script>
+
+
 </head>
 <body>
   <div class="header_section">
@@ -123,19 +149,14 @@
   <input type="submit" value="Submit">
 </form>
 
+
 <h2 class="word">紀錄:</h2>
-  
-  <div class="button-container">
-    <!-- 新增物品按鈕 -->
-    <button id='add-btn' onclick="window.location.href='/records/add-record'">新增物品</button>
 
-
-</div>
-  <ul>
-    <table>
-      <thead>
-      <tr>
-        <th>紀錄ID</th>
+<ul>
+  <table id = "recordTable">
+    <thead>
+    <tr>
+      <th>紀錄ID</th>
         <th>用戶ID</th>
         <th>紀錄情況</th>
         <th>物品ID</th>
@@ -144,28 +165,30 @@
         <th>違規類型</th>
         <th>歸還日期</th>
         <th>操作</th> <!-- 添加一个用于操作的列 -->
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="record : ${records}">
-        <td th:text="${record.record_id}"></td>
-        <td th:text="${record.user_id}"></td>
-        <td th:text="${record.situation}"></td>
-        <td th:text="${record.item_id}"></td>
-        <td th:text="${record.contact_person_id}"></td>
-        <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
-        <td th:text="${record.violation_type}"></td>
-        <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
-        <td>
-          <a th:href="@{/records/edit/{id}(id=${record.record_id})}">編輯</a> <!-- 添加编辑按钮并设置链接到第二个页面 -->
-          <a th:href="@{/items/delete/{id}(id=${item.item_id})}">刪除</a>
-        </td>
-      </tr>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="record : ${records}">
+      <td th:text="${record.record_id}"></td>
+      <td th:text="${record.user_id}"></td>
+      <td th:text="${record.situation}"></td>
+      <td th:text="${record.item_id}"></td>
+      <td th:text="${record.contact_person_id}"></td>
+      <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
+      <td th:text="${record.violation_type}"></td>
+      <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
+      <td>
+        <a th:href="@{/records/edit/{id}(id=${record.record_id})}">編輯</a> <!-- 添加编辑按钮并设置链接到第二个页面 -->
+      </td>
+      <td>
+        <a th:href="@{/records/confirm/{id}(id=${record.record_id})}">確認借用</a> <!-- 添加编辑按钮并设置链接到第二个页面 -->
+      </td>
+    </tr>
 
-      </tbody>
-    </table>
-  </ul>
- 
+    </tbody>
+  </table>
+</ul>
+<button onclick="window.location.href='/records/add-record'">新增</button>
 
 
 

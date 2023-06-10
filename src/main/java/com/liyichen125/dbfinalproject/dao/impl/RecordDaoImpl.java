@@ -8,8 +8,10 @@ import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.dto.RecordRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.model.Record;
+import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.rowmapper.ItemRowMapper;
 import com.liyichen125.dbfinalproject.rowmapper.RecordRowMapper;
+import com.liyichen125.dbfinalproject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -18,6 +20,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +30,8 @@ import java.util.Map;
 public class RecordDaoImpl implements RecordDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    private ItemService itemService;
 
     @Override
     public Integer createRecord(RecordRequest recordRequest) {
@@ -40,10 +45,11 @@ public class RecordDaoImpl implements RecordDao {
 
         map.put("contact_person_id", recordRequest.getContact_person_id());
         map.put("violation_type", recordRequest.getViolation_type());
-
-        Date now = new Date();
+        Item item = itemService.getItemById(recordRequest.getItem_id());
+        LocalDate now = LocalDate.now();
         map.put("borrow_date",now);
-        map.put("return_date",now);
+        LocalDate returnDate = now.plusDays(item.getBorrow_day());
+        map.put("return_date",returnDate);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -52,6 +58,15 @@ public class RecordDaoImpl implements RecordDao {
         int record_id = keyHolder.getKey().intValue();
 
         return record_id;
+    }
+    @Override
+    public  List<Record> getRecordsByUserId(Integer userId){
+        String sql = "SELECT r.record_id,i.item_id,r.situation,r.contact_person_id,r.borrow_date,return_date,r.violation_type,u.user_id, i.item_name FROM dormy.record AS r LEFT JOIN dormy.item AS i ON r.item_id = i.item_id  LEFT JOIN dormy.user AS u ON r.user_id = u.user_id  WHERE 1=1";
+        Map<String, Object> map = new HashMap<>();
+        sql = sql + " AND r.user_id = :user_id";
+        map.put("user_id",userId);
+        List<Record> recordList = namedParameterJdbcTemplate.query(sql,map,new RecordRowMapper());
+        return recordList;
     }
     @Override
     public List<Record> getRecords(RecordSituation situation, String search) {
@@ -73,6 +88,7 @@ public class RecordDaoImpl implements RecordDao {
         List<Record> recordList = namedParameterJdbcTemplate.query(sql,map,new RecordRowMapper());
         return recordList;
     }
+
     @Override
     public Record getRecordById(Integer recordId){
         String sql = "SELECT * FROM dormy.record AS r WHERE r.record_id = :record_id";
@@ -110,4 +126,45 @@ public class RecordDaoImpl implements RecordDao {
             namedParameterJdbcTemplate.update(sql, map);
 
         }
+    @Override
+    public void createBorrowRequest(Item item, User user){
+        String sql = "INSERT INTO dormy.record(user_id,item_id,situation,borrow_date,return_date)" +
+                "VALUES (:user_id,:item_id,:situation,:borrow_date,:return_date)";
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("user_id",user.getUser_id());
+        map.put("item_id", item.getItem_id());
+        map.put("situation","UN_BORROW");
+
+        map.put("contact_person_id","");
+
+        LocalDate now = LocalDate.now();
+
+        map.put("borrow_date",now);
+        LocalDate returnDate = now.plusDays(item.getBorrow_day());
+
+
+        map.put("return_date",returnDate);
+        namedParameterJdbcTemplate.update(sql, map);
+
+
+    }
+    @Override
+    public void createReserveRequest(Item item, User user){
+        String sql = "INSERT INTO dormy.record(user_id,item_id,situation,borrow_date,return_date)" +
+                "VALUES (:user_id,:item_id,:situation,:borrow_date,:return_date)";
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("user_id",user.getUser_id());
+        map.put("item_id", item.getItem_id());
+        map.put("situation","UN_RESERVE");
+        map.put("contact_person_id","");
+        LocalDate now = LocalDate.now();
+
+        map.put("borrow_date",now);
+        LocalDate returnDate = now.plusDays(item.getBorrow_day());
+        map.put("return_date",returnDate);
+        namedParameterJdbcTemplate.update(sql, map);
+    }
+
 }

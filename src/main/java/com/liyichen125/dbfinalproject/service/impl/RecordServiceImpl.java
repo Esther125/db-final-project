@@ -8,6 +8,7 @@ import com.liyichen125.dbfinalproject.dto.ItemRequest;
 import com.liyichen125.dbfinalproject.dto.RecordRequest;
 import com.liyichen125.dbfinalproject.model.Item;
 import com.liyichen125.dbfinalproject.model.Record;
+import com.liyichen125.dbfinalproject.model.User;
 import com.liyichen125.dbfinalproject.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,10 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public List<Record> getRecords(RecordSituation situation, String search) {
         return recordDao.getRecords(situation,search);
+    }
+    @Override
+    public  List<Record> getRecordsByUserId(Integer userId){
+        return  recordDao.getRecordsByUserId(userId);
     }
     @Override
     public Record getRecordById(Integer recordId){

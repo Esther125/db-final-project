@@ -2,7 +2,9 @@ package com.liyichen125.dbfinalproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.liyichen125.dbfinalproject.constant.UserRole;
-import com.sun.istack.internal.NotNull;
+
+import javax.validation.constraints.NotNull;
+
 
 public class User {
 
