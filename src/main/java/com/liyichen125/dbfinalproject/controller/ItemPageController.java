@@ -88,6 +88,7 @@ public class ItemPageController {
         Item item = itemService.getItemById(itemId);
         // 需要创建一个从Item对象到ItemRequest对象的转换方法
         ItemRequest itemRequest = itemService.convertToItemRequest(item);
+//        itemRequest.setItem_id(itemId);
         itemRequest.setItem_id(itemId);
         model.addAttribute("ItemRequest", itemRequest);
         return "edit-item";

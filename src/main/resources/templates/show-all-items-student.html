@@ -153,7 +153,7 @@
         <td th:text="${item.tenure}"></td>
         <td th:text="${item.compensation_price}"></td>
         <td>
-            <a th:href="@{/items/register/{id}(id=${item.item_id})}" class="button">登記</a>
+            <a th:href="@{/items/borrow/{id}(id=${item.item_id})}" class="button">登記</a>
             <a th:href="@{/items/reserve/{id}(id=${item.item_id})}" class="button">預約</a>
         </td>
 

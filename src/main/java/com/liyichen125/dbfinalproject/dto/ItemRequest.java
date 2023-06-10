@@ -9,6 +9,10 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class ItemRequest {
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
+    }
+
     // 這邊只有前端傳回來的(可以更改的)值，沒有date 也沒有id
     private Integer item_id;
     @NotNull

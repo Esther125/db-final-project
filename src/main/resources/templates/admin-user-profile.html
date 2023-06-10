@@ -105,7 +105,43 @@
 </table>
 
 <h2>學生借用紀錄</h2>
-<table id="borrowed_items_placeholder">
+ <br><br>
+        <table id = "recordTable">
+            <thead>
+            <tr>
+                <th>recordID</th>
+                <th>user_id</th>
+                <th>situation</th>
+                <th>item_id</th>
+                <th>contact_person_id</th>
+                <th>borrow_date</th>
+                <th>violation_type</th>
+                <th>return_date</th>
+                <th>item_name</th>
+
+                <!-- 添加一个用于操作的列 -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record : ${records}">
+                <td th:text="${record.record_id}"></td>
+                <td th:text="${record.user_id}"></td>
+                <td th:text="${record.situation}"></td>
+                <td th:text="${record.item_id}"></td>
+                <td th:text="${record.contact_person_id}"></td>
+                <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
+                <td th:text="${record.violation_type}"></td>
+                <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
+                <div th:if="${record.item != null}">
+                    <td th:text="${record.item.item_name}"></td>
+                </div>
+
+
+
+            </tr>
+
+            </tbody>
+        </table>
     <!-- 在這裡添加學生的借用紀錄 -->
     <!-- 这里需要自定义表格头部和行数据，例如：
     <tr>

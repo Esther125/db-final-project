@@ -132,8 +132,9 @@ public class UserPageController {
         return "admin-user-profile";
     }
     @GetMapping("/users/profile/{user_id}")
-    public String showSelfProfile(@PathVariable("user_id") Integer user_id, Model model) {
-        User user = userService.getUserById(user_id);
+    public String showSelfProfile(HttpSession session, Model model) {
+        //User user = userService.getUserById(user_id);
+        User user = (User) session.getAttribute("user");
         // 需要创建一个从Item对象到ItemRequest对象的转换方法
         List<Record> records = recordService.getRecordsByUserId(user.getUser_id());
         for (Record record : records) {
@@ -154,15 +155,5 @@ public class UserPageController {
         model.addAttribute("user", user);
         return "user-profile";
     }
-
-
-
-    //查看個人頁面 - 學生
-
-
-
-
-
-
 
 }

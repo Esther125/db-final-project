@@ -76,7 +76,7 @@ public class RecordPageController {
         RecordRequest recordRequest = recordService.covertToRecordRequest(record);
         recordRequest.setRecord_id(recordId);
         model.addAttribute("RecordRequest", recordRequest);
-        return "confirm-record";
+        return "edit-record";
     }
     @GetMapping("/records/confirm/{id}")
     public String showConfirmForm(@PathVariable("id") Integer recordId, Model model, HttpSession session) {
