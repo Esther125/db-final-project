@@ -12,6 +12,7 @@ import com.liyichen125.dbfinalproject.service.ItemService;
 import com.liyichen125.dbfinalproject.service.RecordService;
 import com.liyichen125.dbfinalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +38,12 @@ public class UserPageController {
         return "login";
     }
 
+
     //登入成功的歡迎頁面
 
     @GetMapping("/users/login-success")
     public String showHomepage(HttpSession session, Model model) {
+
         Integer userId = (Integer) session.getAttribute("user_id");
         if (userId == null) {
             return "redirect:/users/login"; // 如果用户未登录，重定向到登录页面
@@ -65,6 +68,7 @@ public class UserPageController {
     public String loginSuccess(HttpSession session,
                                @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,
                                Model model) {
+
         User user = userService.login(userLoginRequest);
 
         // Store the user id in session after a successful login
