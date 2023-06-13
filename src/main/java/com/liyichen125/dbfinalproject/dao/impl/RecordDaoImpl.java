@@ -20,6 +20,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -107,23 +108,45 @@ public class RecordDaoImpl implements RecordDao {
     }
     @Override
     public  void updateRecord(Integer recordId,RecordRequest recordRequest){
+            if (recordRequest.getBorrow_date() == null){
+                String sql = "UPDATE record SET situation = :situation," +
+                        "item_id = :item_id," +
+                        "user_id = :user_id, contact_person_id = :contact_person_id, violation_type = :violation_type , return_date = :return_date " +
+                        " WHERE record_id = :record_id";
+                Map<String,Object> map = new HashMap<>();
+                map.put("record_id",recordId);
+                map.put("situation",recordRequest.getSituation().toString());
+                map.put("user_id",recordRequest.getUser_id());
+                map.put("contact_person_id",recordRequest.getContact_person_id());
+                map.put("violation_type",recordRequest.getViolation_type());
+                map.put("item_id",recordRequest.getItem_id());
+                map.put("return_date",recordRequest.getReturn_date());
+                namedParameterJdbcTemplate.update(sql, map);
 
-            String sql = "UPDATE record SET situation = :situation," +
-                    "item_id = :item_id," +
-                    "user_id = :user_id, contact_person_id = :contact_person_id, violation_type = :violation_type" +
-                    " WHERE record_id = :record_id";
+            }else{
+                String sql = "UPDATE record SET situation = :situation," +
+                        "item_id = :item_id," +
+                        "user_id = :user_id, contact_person_id = :contact_person_id, violation_type = :violation_type , return_date = :return_date ,borrow_date = :borrow_date" +
+                        " WHERE record_id = :record_id";
 
-            Map<String,Object> map = new HashMap<>();
-            map.put("record_id",recordId);
-            map.put("situation",recordRequest.getSituation().toString());
-            map.put("user_id",recordRequest.getUser_id());
-            map.put("contact_person_id",recordRequest.getContact_person_id());
-            map.put("violation_type",recordRequest.getViolation_type());
-            map.put("item_id",recordRequest.getItem_id());
+                Map<String,Object> map = new HashMap<>();
+                map.put("record_id",recordId);
+                map.put("situation",recordRequest.getSituation().toString());
+                map.put("user_id",recordRequest.getUser_id());
+                map.put("contact_person_id",recordRequest.getContact_person_id());
+                map.put("violation_type",recordRequest.getViolation_type());
+                map.put("item_id",recordRequest.getItem_id());
+                map.put("return_date",recordRequest.getReturn_date());
+                map.put("borrow_date",recordRequest.getBorrow_date());
+                namedParameterJdbcTemplate.update(sql, map);
+
+            }
+
+
             // 紀錄當下日期
 //        Date now = new Date();
 //        map.put("purchase_date",now);
-            namedParameterJdbcTemplate.update(sql, map);
+
 
         }
     @Override

@@ -101,6 +101,7 @@ public class ItemPageController {
                              RedirectAttributes redirectAttributes) {
         // 需要创建一个从ItemRequest对象到Item对象的转换方法
 
+
         // 更新物品
         itemService.updateItem(itemId, itemRequest);
         System.out.println(itemId);

@@ -2,8 +2,10 @@ package com.liyichen125.dbfinalproject.dto;
 
 import com.liyichen125.dbfinalproject.constant.RecordSituation;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RecordRequest {
@@ -49,6 +51,10 @@ public class RecordRequest {
     @NotNull
     private Date return_date;
 
+
+
+
+
     public Integer getUser_id() {
         return user_id;
     }
@@ -80,6 +86,10 @@ public class RecordRequest {
         this.violation_type = violation_type;
 
     }
+//    public void setReturn_date(@DateTimeFormat(pattern = "yyyy-MM-dd") Date return_date) {
+//        this.return_date = return_date;
+//    }
+
 
     public void setSituation(RecordSituation situation) {
         this.situation = situation;

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -96,7 +98,9 @@ public class RecordPageController {
                              @ModelAttribute("RecordRequest") RecordRequest recordRequest,
                              RedirectAttributes redirectAttributes) {
         // 需要创建一个从ItemRequest对象到Item对象的转换方法
+
         // 更新物品
+
         recordService.updateRecord(recordID, recordRequest);
         Record record = recordService.getRecordById(recordID);
         Item item = itemService.getItemById(record.getItem_id());
