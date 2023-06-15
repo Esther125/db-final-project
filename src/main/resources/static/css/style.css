@@ -243,21 +243,27 @@ button {
     text-align: center;
     padding-right: 25px;
     padding-left: 25px;
-    padding-top: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
     
 }
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
     color: #fff;
     background-color: #003c61;
     box-shadow: 0 2px 4px rgb(182, 178, 178); /* 添加阴影 */
+    /*padding:25px 20px;*/
+    white-space: nowrap; /* 文本不换行 */
 }
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
     color: #003c61;
     background-color: #FFFAFA;
 }
+
 .navbar {
-    padding: 0px 25px 30px 25px;
-    /*padding:25px 25px 25px 25px*/
+    padding:0px 25px 30px 25px;
+    /*width:1200px;*/
+   /* padding:0px 25px 30px 25px*/
 }
 .search_icon{
     padding-top: 30px;
