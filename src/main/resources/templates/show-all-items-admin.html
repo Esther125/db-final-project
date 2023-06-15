@@ -118,7 +118,9 @@
 <!--            <a th:href="@{/items/edit/{id}(id=${item.item_id})}">編輯</a>-->
             <!--              <a th:href="@{/items/delete/{item_id}(id=${item.item_id})}">刪除</a>-->
             <button id="edit-btn" class="edit-btn" th:data-link="@{/items/edit/{id}(id=${item.item_id})}">編輯</button>
-            <button id="delete-btn" th:data-id="${item.item_id}">刪除</button>
+            <button id="delete-btn" class="delete-btn" th:data-link="@{/items/delete/{id}(id=${item.item_id})}" onclick="confirmDelete(this)">刪除</button>
+
+
         </td>
     </tr>
     </tbody>
@@ -126,20 +128,6 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-        $(document).ready(function() {
-            $(".deleteButton").click(function() {
-                var id = $(this).data('id'); // 從按鈕的數據屬性中獲取ID
-                $.ajax({
-                    url: '/items/' + id,
-                    type: 'DELETE',
-                    success: function(result) {
-                        // 刪除成功後的處理
-                        // 例如重新加載頁面或者從表格中移除該行
-                        location.reload();
-                    }
-                });
-            });
-        });
 
         // Get all buttons with class 'edit-btn' and add a click event listener to each
     document.querySelectorAll('.edit-btn').forEach(function(button) {
@@ -147,6 +135,20 @@
             window.location.href = this.getAttribute('data-link');  // Navigate to the URL specified in the 'data-link' attribute
         });
     });
+
+    document.querySelectorAll('.delete-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            window.location.href = this.getAttribute('data-link');  // Navigate to the URL specified in the 'data-link' attribute
+        });
+    });
+
+    function confirmDelete(button) {
+    var result = window.confirm("確定要刪除此項目嗎？");  // 詢問用戶是否確定刪除
+    if (result) { // 如果用戶點擊"確定"，則執行刪除操作
+        window.location.href = button.getAttribute('data-link');  // Navigate to the URL specified in the 'data-link' attribute
+    }
+}
+
     </script>
 
 

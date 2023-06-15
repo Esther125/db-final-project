@@ -46,14 +46,14 @@ h1 {
     background-color: rgba(39, 52, 105, 0.7); 
 }
 #add-btn2{
-    width: 80px;
+    width: 120px;
     padding: 5px;
     border-radius: 5px;
     background-color: #273469;
     color: #fff;
     border: none;
     cursor: pointer;
-    margin-left: 1050px;
+    margin-left: 1000px;
 }
 
 #add-btn2:hover {
@@ -76,9 +76,12 @@ flex: 1;
 }
 
 .button-container {
-margin-left: 20px; /* 调整按钮与物品容器之间的间距 */
-margin-bottom: 5px;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 /*.button-group {
     justify-content: center;
     display: flex;

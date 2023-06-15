@@ -133,24 +133,14 @@ public class ItemPageController {
         return "show-all-items-student";
     }
 
-//    @GetMapping("/items/delete/{id}")
-//    public String updateItem(@PathVariable("id") Integer itemId,Model model) {
-////        System.out.println(itemId);
-////        itemService.deleteItemById(itemId);
-//        Item item = itemService.getItemById(itemId);
-//        model.addAttribute("item", item);
-//        return "delete-item";
-//    }
 
-    @DeleteMapping("/items/delete/{item_id}")
-    @ResponseBody
-    public ResponseEntity<String> deleteItem(@PathVariable Integer item_id) {
-        try {
-            itemService.deleteItemById(item_id);
-            return new ResponseEntity<>("Item deleted successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Failed to delete item", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("/items/delete/{item_id}")
+    public String deleteItem(@PathVariable Integer item_id) {
+
+        itemService.deleteItemById(item_id);
+//            return new ResponseEntity<>("Item deleted successfully", HttpStatus.OK);
+
+        return "redirect:/items";
     }
     @GetMapping("/items/borrow/{id}")
     public  String borrowItem(@PathVariable("id")Integer itemId, Model model, HttpSession session){

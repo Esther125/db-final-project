@@ -32,6 +32,7 @@ public class RecordDaoImpl implements RecordDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Autowired
     private ItemService itemService;
 
     @Override

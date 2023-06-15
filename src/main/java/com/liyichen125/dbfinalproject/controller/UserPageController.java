@@ -63,30 +63,6 @@ public class UserPageController {
         }
     }
 
-
-
-//    @PostMapping("/users/login-success")
-//    public String loginSuccess(HttpSession session,
-//                               @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,
-//                               Model model) {
-//
-//        User user = userService.login(userLoginRequest);
-//
-//        // Store the user id in session after a successful login
-//        session.setAttribute("user_id", user.getUser_id());
-//
-//        model.addAttribute("user", user);
-//        session.setAttribute("user", user);
-//
-//
-//        if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
-//            return "student-homepage";
-//        } else if (user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
-//            return "admin-homepage";
-//        } else {
-//            return "login"; // 如果角色无效，重定向回登录页面
-//        }
-//    }
 @PostMapping("/users/login-success")
 public String loginSuccess(HttpSession session,
                            @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,

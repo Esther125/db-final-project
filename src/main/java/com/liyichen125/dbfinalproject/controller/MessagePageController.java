@@ -44,11 +44,9 @@ public class MessagePageController {
 
     @PostMapping("/add-message-success")
     public String addMessageSuccess(@ModelAttribute("MessageRequest") MessageRequest messageRequest, Model model) {
-//        model.addAttribute("MessageRequest", new MessageRequest());
         Integer message_id = messageService.createMessage(messageRequest);
         model.addAttribute("message_id", message_id);
         if (message_id != null) {
-            // 添加一个标记到 session
             model.addAttribute("messageAdded", true);
         }
         return "redirect:/add-message";
