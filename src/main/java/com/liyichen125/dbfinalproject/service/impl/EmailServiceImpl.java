@@ -13,7 +13,7 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender javaMailSender;
 
     public void sendEmail(String to, String subject, String content) {
-
+        to = to+"@nccu.edu.tw";
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
