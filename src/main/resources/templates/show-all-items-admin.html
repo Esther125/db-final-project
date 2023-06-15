@@ -22,7 +22,7 @@
 <!-- fevicon -->
 <link rel="icon" href="images/fevicon.png" type="image/gif" />
 <!-- Scrollbar Custom CSS -->
-<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
 <!-- Tweaks for older IEs-->
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
@@ -59,8 +59,9 @@
                 <a class="nav-link" href="/add-message">留言板管理</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="/records">借還物品紀錄</a>
+                <a class="nav-link" href="record2.html">借還物品紀錄</a>
               </li>
+          
               <li class="nav-item active">
                 <a class="nav-link" href="/users/management">會員管理</a>
               </li>
@@ -114,9 +115,9 @@
             <td th:text="${item.tenure}"></td>
             <td th:text="${item.compensation_price}"></td>
             <td>
-              <a th:href="@{/items/edit/{id}(id=${item.item_id})}">編輯</a>
+              <button id='edit-btn' onclick="window.location.href='/items/edit/{id}(id=${item.item_id})'">編輯</button>
 <!--              <a th:href="@{/items/delete/{item_id}(id=${item.item_id})}">刪除</a>-->
-                <button class="deleteButton" th:data-id="${item.item_id}">刪除</button>
+                <button id='delete-btn' class="deleteButton" th:data-id="${item.item_id}">刪除</button>
             </td>
         </tr>
         </tbody>
