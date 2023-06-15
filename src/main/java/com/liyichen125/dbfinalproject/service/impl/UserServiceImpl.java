@@ -50,26 +50,46 @@ public class UserServiceImpl implements UserService {
         return userDao.createUser(userRegisterRequest);
     }
 
-    @Override
-    public User login(UserLoginRequest userLoginRequest) {
-        User user = userDao.getUserById(userLoginRequest.getUser_id());
-        // 檢查使用者有沒有註冊過
-        if(user == null){
-            log.warn("該id尚未註冊");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-
-        // 密碼加密
-        String hashedPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
-
-        //檢查密碼
-        if(user.getPassword().equals(hashedPassword)){
-            return user;
-        }else{
-            log.warn("密碼錯誤");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+//    @Override
+//    public User login(UserLoginRequest userLoginRequest) {
+//        User user = userDao.getUserById(userLoginRequest.getUser_id());
+//        // 檢查使用者有沒有註冊過
+//        if(user == null){
+//            log.warn("該id尚未註冊");
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+//
+//        // 密碼加密
+//        String hashedPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
+//
+//        //檢查密碼
+//        if(user.getPassword().equals(hashedPassword)){
+//            return user;
+//        }else{
+//            log.warn("密碼錯誤");
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+//    }
+public User login(UserLoginRequest userLoginRequest) {
+    User user = userDao.getUserById(userLoginRequest.getUser_id());
+    // 檢查使用者有沒有註冊過
+    if(user == null){
+        log.warn("該id尚未註冊");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "該id尚未註冊");
     }
+
+    // 密碼加密
+    String hashedPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
+
+    //檢查密碔
+    if(user.getPassword().equals(hashedPassword)){
+        return user;
+    }else{
+        log.warn("密碼錯誤");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "密碼錯誤");
+    }
+}
+
 
     @Override
     public List<User> getUsers() {

@@ -2,16 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
-    <!-- basic -->
-
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- mobile metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Shortcodes</title>
+    <title>Message</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -34,7 +32,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/css/haha.css">
 </head>
-<body>
+</body>
     <div class="header_section">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <h2 class="dance_text">政大物品借還系統<br>管理員頁面</h2>
@@ -65,84 +63,109 @@
                         <a class="nav-link" href="/users/login">登出</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="search_icon"><a href="#"><img src="/images/search-icon.png"></a></div>
-                </form>
+
             </div>
         </nav>
     </div>
+    <title>Message Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .message-board-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .message-board {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .message-board h3 {
+            margin-bottom: 20px;
+        }
+        .message-board .message-time {
+            color: lightgray;
+            font-size: 0.8em;
+        }
+        .message-board p {
+            margin-bottom: 10px;
+        }
+        .delete-button {
+            color: gray;
+            float: right;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        form input[type="text"], form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        form input[type="submit"] {
+            padding: 5px 20px;
+        }
+    </style>
+</head>
+<body>
 
-<h2>學生個人資訊頁面</h2>
-<table>
-    <tr>
-        <td>學生ID:</td>
-        <td th:text="${user.user_id}"></td>
-    </tr>
-    <tr>
-        <td>姓名:</td>
-        <td th:text="${user.name}"></td>
-    </tr>
-    <tr>
-        <td>角色:</td>
-        <td th:text="${user.role}"></td>
-    </tr>
-    <tr>
-        <td>點數:</td>
-        <td th:text="${user.point}"></td>
-    </tr>
-    <tr>
-        <td>電話號碼:</td>
-        <td th:text="${user.phoneNumber}"></td>
-    </tr>
-    <tr>
-        <td>房間號碼:</td>
-        <td th:text="${user.roomNumber}"></td>
-    </tr>
-    <tr>
-        <td>系級:</td>
-        <td th:text="${user.departmentGrade}"></td>
-    </tr>
-</table>
-    <br>
-    <h2>學生借用紀錄</h2>
-    <table id="borrowed_items_placeholder">
-        <ul>
-            <table id = "recordTable">
-                <thead>
-                <tr>
-                    <th>recordID</th>
-                    <th>user_id</th>
-                    <th>situation</th>
-                    <th>item_id</th>
-                    <th>contact_person_id</th>
-                    <th>borrow_date</th>
-                    <th>violation_type</th>
-                    <th>return_date</th>
-                    <th>item_name</th>
+<h2>Message Board</h2>
 
-                    <!-- 添加一个用于操作的列 -->
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="record : ${records}">
-                    <td th:text="${record.record_id}"></td>
-                    <td th:text="${record.user_id}"></td>
-                    <td th:text="${record.situation}"></td>
-                    <td th:text="${record.item_id}"></td>
-                    <td th:text="${record.contact_person_id}"></td>
-                    <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${record.violation_type}"></td>
-                    <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
-                    <div th:if="${record.item != null}">
-                        <td th:text="${record.item.item_name}"></td>
-                    </div>
+<div class="message-board-container">
+    <div class="message-board" th:each="message : ${messages}">
+        <h3>
+            <span th:text="${message.user_id}"></span>&nbsp;&nbsp;
+            <span class="message-time" th:text="${message.m_time}"></span>
+            <span class="delete-button" th:attr="data-id=${message.message_id}" onclick="deleteMessage(this.getAttribute('data-id'))">Delete</span>
+        </h3>
+        <p th:text="${message.content}"></p>
+    </div>
+</div>
+
+<h2>Add Message</h2>
+<form id="message-form" action="#" th:action="@{/add-message-success}" th:object="${MessageRequest}" method="post">
+    <input type="hidden" name="success" value="true" />
+    User ID: <input type="text" th:field="*{user_id}"/><BR><BR>
+    <textarea rows="4" cols="50" th:field="*{content}" placeholder="Please enter your message here"></textarea><BR>
+    <input type="submit" value="Submit"/>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+document.getElementById('message-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Message added successfully');
+    this.submit();
+});
+
+function deleteMessage(id) {
+    $.ajax({
+        url: '/delete-message/' + id,
+        type: 'DELETE',
+        success: function(response) {
+            alert(response);
+            location.reload(); // If successful, reload the page
+        },
+        error: function(response) {
+            alert('Error: ' + response.responseText);
+        }
+    });
+}
+</script>
 
 
 
-                </tr>
-                </tbody>
-            </table>
+
 </body>
 </html>
+
 
 

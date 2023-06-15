@@ -6,7 +6,7 @@ import com.liyichen125.dbfinalproject.model.Message;
 import java.util.List;
 
 public interface MessageService {
-    Integer createMessage(MessageRequest messageRequeste);
+    Integer createMessage(MessageRequest messageRequest);
     List<Message> getMessages();
 
     void deleteMessage(Integer messageId);

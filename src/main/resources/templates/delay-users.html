@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delay Users</title>
+</head>
+<body>
+<h1>Delay Users</h1>
+<table id = "recordTable">
+    <thead>
+    <tr>
+        <th>recordID</th>
+        <th>user_id</th>
+        <th>situation</th>
+        <th>item_id</th>
+        <th>contact_person_id</th>
+        <th>borrow_date</th>
+        <th>violation_type</th>
+        <th>return_date</th>
+        <th>item_name</th>
+        <th>寄信</th>
+
+        <!-- 添加一个用于操作的列 -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="record : ${records}">
+        <td th:text="${record.record_id}"></td>
+        <td th:text="${record.user_id}"></td>
+        <td th:text="${record.situation}"></td>
+        <td th:text="${record.item_id}"></td>
+        <td th:text="${record.contact_person_id}"></td>
+        <td th:text="${#dates.format(record.borrow_date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${record.violation_type}"></td>
+        <td th:text="${#dates.format(record.return_date, 'yyyy-MM-dd')}"></td>
+        <div th:if="${record.item != null}">
+            <td th:text="${record.item.item_name}"></td>
+        </div>
+        <td>
+            <a th:href="@{/send-email/{id}(id=${record.record_id})}">寄信</a>
+        </td>
+
+
+
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>

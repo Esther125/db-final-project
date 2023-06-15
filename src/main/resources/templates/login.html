@@ -637,5 +637,17 @@
         </div>
     </div>
 </section>
+
+<!-- Script to show alert if there's an error message -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var error = /*[[${error}]]*/ 'default';
+    if (error !== 'default' && error !== null) {
+        alert(error);
+    }
+    /*]]>*/
+</script>
+
+
 </body>
 </html>

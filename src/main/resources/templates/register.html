@@ -4,7 +4,7 @@
       href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
 <!-- Main css -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 <style>
 
     /* @extend display-flex; */
@@ -186,17 +186,23 @@ p {
   color: #777; }
 
 h2 {
-  line-height: 3;
+  line-height: 2;
 
   font-weight: bold;
   color:  #222;
   font-family: Poppins;
   font-size: 36px;
    text-align: center;
-   margin-bottom: 100px;
+   margin-bottom: 10px;
 
 
    }
+  
+   .custom-select {
+  width: 250px; /* 设置宽度 */
+  height: 30px; /* 设置高度 */
+}
+
 
 .main {
   background: #f8f8f8;
@@ -266,20 +272,21 @@ body {
   margin-bottom: 50px; }
 
 .signup-content {
-  padding: 75px 0; }
+  padding: 20px 0; }
 
 .signup-form, .signup-image, .signin-form, .signin-image {
   width: 50%;
   overflow: hidden; }
 
 .signup-image {
-  margin: 0 50px;
-  position: absolute;
-  top:300px;
-
-  left:600px;
+  margin: 0 10px;
+  position: relative;
+ 
+  bottom: 600px;
+  left:500px;
   height: auto;
-  max-width: 50%;
+  max-width: 100%;
+  transform: scale(1.2);
 
 
 }
@@ -293,6 +300,7 @@ body {
 
 figure {
   margin-bottom: 50px;
+  margin-left: 20px;
   text-align: center; }
 
 .form-submit {
@@ -534,7 +542,7 @@ label.valid {
   margin-left: 80px; }
 
 .signin-image {
-  margin-left: 110px;
+  margin-left: 150px;
   margin-right: 20px;
   margin-top: 10px; }
 
@@ -567,7 +575,7 @@ label.valid {
 
   .signin-image {
     margin-left: 0px;
-    margin-right: 0px;
+    margin-right: 30%;
     margin-top: 50px;
     order: 2;
     -moz-order: 2;
@@ -630,6 +638,7 @@ label.valid {
 <div class="main">
     <section class="signup">
         <div class="container">
+            <br>
             <h2 class="form-title" >宿舍物品借還系統註冊</h2>
             <div class="signup-content">
                 <div class="signup-form">
@@ -640,12 +649,12 @@ label.valid {
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{user_id}"/><BR>
                         姓名： <i
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{name}"/><BR>
-<!--                        身分： <i-->
-<!--                            class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{role}"/><BR>-->
+                        <div class="form-group">
                         身分：
-                        <select th:field="*{role}">
-                            <option th:each="role : ${T(com.liyichen125.dbfinalproject.constant.UserRole).values()}" th:value="${role}" th:text="${role.displayName}"></option>
-                        </select><BR>
+                        <select th:field="*{role}" class = "custom-select">
+                          <option th:each="role : ${T(com.liyichen125.dbfinalproject.constant.UserRole).values()}" th:value="${role}" th:text="${role.displayName}"></option>
+                        </select>
+                        </div>
 
                         手機號碼： <i
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{phoneNum}"/><BR>
@@ -654,7 +663,7 @@ label.valid {
                         系級： <i
                             class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{department_grade}"/><BR>
                         密碼： <i
-                            class="zmdi zmdi-account material-icons-name"></i><input type="password" th:field="*{password}"/><BR>
+                            class="zmdi zmdi-account material-icons-name"></i><input type="text" th:field="*{password}"/><BR>
 
                         <input type="submit" class="form-submit"/>
                     </form>
@@ -673,13 +682,5 @@ label.valid {
         </div>
     </section>
 </div>
-
-<script>
-document.getElementById('register-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Register Success');
-    this.submit();
-});
-</script>
 </body>
 </html>

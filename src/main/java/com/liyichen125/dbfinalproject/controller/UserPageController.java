@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -64,28 +65,56 @@ public class UserPageController {
 
 
 
-    @PostMapping("/users/login-success")
-    public String loginSuccess(HttpSession session,
-                               @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,
-                               Model model) {
+//    @PostMapping("/users/login-success")
+//    public String loginSuccess(HttpSession session,
+//                               @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,
+//                               Model model) {
+//
+//        User user = userService.login(userLoginRequest);
+//
+//        // Store the user id in session after a successful login
+//        session.setAttribute("user_id", user.getUser_id());
+//
+//        model.addAttribute("user", user);
+//        session.setAttribute("user", user);
+//
+//
+//        if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
+//            return "student-homepage";
+//        } else if (user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
+//            return "admin-homepage";
+//        } else {
+//            return "login"; // 如果角色无效，重定向回登录页面
+//        }
+//    }
+@PostMapping("/users/login-success")
+public String loginSuccess(HttpSession session,
+                           @ModelAttribute("UserLoginRequest") UserLoginRequest userLoginRequest,
+                           Model model) {
 
-        User user = userService.login(userLoginRequest);
-
-        // Store the user id in session after a successful login
-        session.setAttribute("user_id", user.getUser_id());
-
-        model.addAttribute("user", user);
-        session.setAttribute("user", user);
-
-
-        if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
-            return "student-homepage";
-        } else if (user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
-            return "admin-homepage";
-        } else {
-            return "login"; // 如果角色无效，重定向回登录页面
-        }
+    User user;
+    try {
+        user = userService.login(userLoginRequest);
+    } catch (ResponseStatusException e) {
+        model.addAttribute("error", e.getReason()); // add the error message to the model
+        return "login"; // return back to the login page
     }
+
+    // Store the user id in session after a successful login
+    session.setAttribute("user_id", user.getUser_id());
+
+    model.addAttribute("user", user);
+    session.setAttribute("user", user);
+
+    if (user.getRole().toString().equals("STUDENT")) { // 假设角色值1表示学生
+        return "student-homepage";
+    } else if (user.getRole().toString().equals("ADMIN")) { // 假设角色值2表示管理员
+        return "admin-homepage";
+    } else {
+        return "login"; // 如果角色无效，重定向回登录页面
+    }
+}
+
 
 
     //註冊介面
@@ -148,14 +177,6 @@ public class UserPageController {
 
 
         model.addAttribute("records",records);
-
-
-//     //查看個人頁面 - 學生
-//     @GetMapping("/users/profile/{user_id}")
-//     public String selfProfile(HttpSession session, Model model) {
-//         Integer userId = (Integer) session.getAttribute("user_id");
-//         User user = userService.getUserById(userId);
-
         model.addAttribute("user", user);
         return "user-profile";
     }

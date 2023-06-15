@@ -86,7 +86,11 @@
     <option th:each="situation : ${recordSituation}" th:value="${situation}" th:text="${situation.displayName}"></option>
 </select><br>
 
-    違規類型： <input type="text" th:field="*{violation_type}"/><br>
+    違規類型： <input type="text" th:field="*{violation_type}"/><br><br>
+
+    歸還日期： <input type="date" th:field="*{return_date}"/><br>
+    借用日期： <input type="date" th:field="*{borrow_date}"/><br>
+
     <input type="submit" value="Submit"/>
 </form>
 </div>
