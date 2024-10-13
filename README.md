@@ -22,7 +22,8 @@ All of these resources are available at the following link: [Dormy Documentation
 
 <div align="center">
   <img width="467" alt="dormy2" src="https://github.com/Esther125/db-final-project/assets/82760846/3e6d5e30-97c0-471a-8069-4476a7d27efd">
+  <img width="467" src="https://github.com/user-attachments/assets/cd0b57db-e3f5-4af4-844b-eba18638cca8">  
+  <img width="467" src="https://github.com/user-attachments/assets/753a027c-b58c-4abc-b67d-e4044da8c888"> 
+  <img width="467" src="https://github.com/user-attachments/assets/23155f53-8399-442e-80b9-1c5de2fec60d">   
 </div>
-<div align="center">
-  <img width="467" alt="dormy1" src="https://github.com/Esther125/db-final-project/assets/82760846/3f527feb-7839-4162-93f2-de8e10c8e2c2">
-</div>
+
